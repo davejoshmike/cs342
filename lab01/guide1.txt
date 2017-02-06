@@ -1,0 +1,33 @@
+1. Chapter 1
+
+	a. Compare and contrast data, databases, database (management) systems and information systems.
+	data is the information that is stored within databases, which is accessed through a database management system. This entire process falls under information systems, which is the use of computers to collect, process, store, analyze and distribute information.
+	
+	b. Compare and contrast database systems with the following, using the main characteristics of the database approach in your discussion.
+		i. data structures and algorithms
+		ii. traditional file systems
+	
+	c. Identify the stakeholders of database systems.
+	caual end users: learn to use a few facilities repeatedly
+	naive end users: understand UIs or premade queries
+	sophisticated end users: learn most of the facilities of DBMS
+	standalone end users: proficient in a single software package
+	
+2. Chapter 2
+
+a. Explain the significance of the categories of data models. Which type of model is displayed in Figure 2.1?
+	a data model contains the definitions of datatypes, relationships, constraints, and operations. This data model in particular shows the table and the columns in that table. while the relationships are not explicity stated, there are some implicit indicators of a relationship between items, such as a Course having a Course_number, which is used to identify a Prerequisite.
+
+b. Explain the structure and significance of the three-schema architecture.	
+	i. Internal schema: data model and details of physical data storage and access paths for the database.
+	
+	ii. Conceptual schema: entities, data types, relationships, user operations and constraints. Hides the details of physical storage.
+	
+	iii. External schema: what the user sees. Only shows the part of the database the user is interested in.
+
+c. Explain the tiers used in a typical web-based information system.
+	The client is used to display the relevent information in a meaningful way. the client presents the information from the database to the user.
+	
+	The web server or application server serves as a sort of 'bouncer' for the database. It checks the client's credentials and only forwards the message if the credentials are indeed correct. It also allows for increased security, as the client never has to talk directly to the database.
+	
+	The database server handles calls from the web server. The database server contains the physical storage location of the data.
