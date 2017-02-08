@@ -1,0 +1,5 @@
+Exercise 1.14
+	cs => csse
+	a. The Department column would have to be updated as well as every course_number or prerequisite_number column
+
+	b. Restructure all the course_number columns into department with data_type XXXX (i.e CSSE) and course_number with data_type Character (4) (i.e. 1310). Also do the same for the prerequisite_number column in prerequisite table. Then when the user wants to query the course, just query both the department and the course_number and combine the two.

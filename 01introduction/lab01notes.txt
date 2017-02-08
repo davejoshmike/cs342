@@ -1,0 +1,31 @@
+Exercise 1
+To get into the databases (using Start Database):
+	sqlplus system/MonkeyHat8
+	hr/abc123
+
+To get to the s drive (in terminal):
+	s:
+
+Default way to get the table names (via commandLine)
+	SELECT table_name FROM user_tables;
+
+To see whats in a table
+	DESCRIBE EMPLOYEES;
+	DESCRIBE table_name;
+
+Instead of SELECT TOP 5 * FROM ...
+	Use	SELECT ... FROM ... WHERE ROWNUM <= 5;
+
+Instead of SELECT column_name as newid
+	Use SELECT column_name as "newid"
+
+
+
+This is a join query: 
+	SELECT FIRST_NAME || ' ' || LAST_NAME 
+	FROM EMPLOYEES, DEPARTMENTS
+	WHERE DEPARTMENTS.DEPARTMENT_ID = EMPLOYEES.DEPARTMENT_ID
+
+When using NULL, use IS not =:
+	WHERE STATE_PROVINCES IS NULL -- <= good
+	WHERE STATE_PROVINCES = NULL -- <= bad

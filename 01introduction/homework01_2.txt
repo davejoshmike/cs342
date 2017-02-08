@@ -1,0 +1,19 @@
+Exercise 2.13
+Schema:
+	College:
+	Id | Name | Terms_Offered
+
+	Student:
+	Email | Password | Name
+	
+	Course:
+	Course_Number | Course_Name | Credit_Hours | Department | College_Id
+
+	Section:
+	Section_Id | Course_Number | Professor | Start_Time | End_Time | Days_Offered | Semester_Offered
+
+	Section_Instance:
+	Instance_Id | Section_Id | Stu_Email
+
+Using the Stu_Email linked to the Section_Instances,
+a student would be able to load a schedule using their account
