@@ -11,6 +11,7 @@
 
 -- terrible things:
 --1. Bad DB Smell - lots of null values
+--2. Ditto values like person with personId=1
 --2. no teamID - there is no way to distinguish between teams except through teamName. 
 --3. no primary key or constraints declared in the table
 	--a. there is no way to distinguish between different entries if someone accidentally puts a duplicate id for personId or mentorId.
@@ -79,9 +80,15 @@ CREATE TABLE Person (
 	--personId => name, status
 	--mentorId => mentorName, mentorStatus
 	--teamName => teamTime
-	--personId, teamId => teamRole
+	--personId, teamNmae => teamRole
 
 INSERT INTO Team SELECT DISTINCT teamName, teamTime FROM AltPerson;
-INSERT INTO PersonTeam SELECT DISTINCT personId, teamName, teamRole FROM AltPerson;
+INSERT INTO PersonTeam(personId, teamName) SELECT DISTINCT personId, teamName FROM AltPerson;
+INSERT INTO PersonTeam(teamRole) SELECT AltPerson.teamRole FROM AltPerson, PersonTeam WHERE AltPerson.personId = PersonTeam.personId;
 INSERT INTO Mentor SELECT DISTINCT mentorId, mentorName, MentorStatus FROM AltPerson WHERE mentorId IS NOT NULL;
 INSERT INTO Person SELECT DISTINCT personId, mentorId, teamName, name, status FROM AltPerson WHERE mentorId IS NOT NULL;
+
+SELECT * FROM Team;
+SELECT * FROM PersonTeam;
+SELECT * FROM Mentor;
+SELECT * FROM Person;
