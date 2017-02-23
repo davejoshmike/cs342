@@ -4,7 +4,6 @@
 -- kvlinden
 
 drop table Team;
---drop table PersonHousehold;
 drop table Person;
 drop table Household;
 
@@ -16,7 +15,6 @@ create table Household(
 	zipcode char(5),
 	phoneNumber char(12)
 	);
-	
 
 create table Person (
 	id integer PRIMARY KEY,
@@ -40,17 +38,6 @@ create table Request(
 	FOREIGN KEY (householdid) REFERENCES Household(id)
 	);
 	
-	
--- Create table PersonHousehold (
-	-- personid integer,
-	-- householdid integer,
-	-- role varchar(15),
-	-- CHECK (role in ('father', 'mother', 'child')),
-	-- FOREIGN KEY (personid) REFERENCES Person(id),
-	-- FOREIGN KEY (householdid) REFERENCES Household(id),
-	-- PRIMARY KEY (personid, householdid)
-	-- );
-	
 create table Team (
 	id integer,
 	personid integer,
@@ -62,8 +49,6 @@ create table Team (
 	FOREIGN KEY (personid) REFERENCES Person(id),
 	PRIMARY KEY (id, personid)
 	);
-	
---one person per team (mult roles?)
 	
 INSERT INTO Household VALUES (0,'5555 Oxford Dr. SE','Grand Rapids','MI','49506','616-555-5555');
 INSERT INTO Household VALUES (1,'333 Woodcliff Ave SE','Grand Rapids','MI','49506','616-333-3333');

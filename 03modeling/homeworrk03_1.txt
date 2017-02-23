@@ -1,0 +1,18 @@
+Exercise 3.21
+a.
+	Flight:
+	A Flight has the id that flight_leg and leg_instance map themselves to. It also has Airline and Weekdays which are nice to have
+
+	Flight_leg:
+	A Flight_leg cares about the scheduled_departure_time and scheduled_arrival_time and many flight_legs connect to a particular airport with many scheduled_departure_times and scheduled_arrival_times. 
+	If an airplane wants to know where to go, it can go through the arrival_airport of the flight_leg and if it wants to know when it SHOULD leave, it would check scheduled_departure_time. What happens if a flight doesn't get to its arrival airport? Shouldn't there then be a scheduled_departure_airport and a scheduled_arrival_airport?
+
+	Leg_instance:
+	A Leg_instance cares about the actual/real departure_time and arrival_time. These attributes map to an actual time, so if there is a delay or a flight gets in early, those changes will be realized through dep_time and arr_time NOT through scheduled_departure_time and scheduled_arrival_time.
+	An airplane uses leg_instance to log the actual time that it departs and arrives. If airport wants to identify a certain leg_instance, it will need to get the flight id. Basically, dep_time and arrival_time are just logs.
+
+b. 
+	The dotted lines means that the attribute is calculated. 
+
+c.
+	They probably wanted to be able to easily add or remove seats from no_of_avail_seats in leg_instance as people cancel a reservation or the seat number moves around.
