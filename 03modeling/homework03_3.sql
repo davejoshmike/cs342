@@ -1,8 +1,8 @@
-drop table Employee;
-drop table Customer;
-drop table Part;
-drop table Orders; -- Note: Order is a reserved word; Using Orders instead
 drop table PartOrder;
+drop table Orders;
+drop table Part;
+drop table Customer;
+drop table Employee;
 
 create table Employee(
 	empnum integer PRIMARY KEY,
@@ -57,10 +57,9 @@ INSERT INTO PART VALUES (2, 'box of nails', 4.99, 50);
 
 INSERT INTO ORDERS VALUES (0,0,0, to_date('17-Feb-2017','DD-MON-YYYY'), to_date('24-Feb-2017','DD-MON-YYYY'), to_date('22-Feb-2017','DD-MON-YYYY'));
 INSERT INTO ORDERS VALUES (1,1,0, to_date('17-Feb-2017','DD-MON-YYYY'), to_date('24-Feb-2017','DD-MON-YYYY'), to_date('22-Feb-2017','DD-MON-YYYY'));
-INSERT INTO ORDERS VALUES (2,0,1, to_date('17-Feb-2017','DD-MON-YYYY'), to_date('24-Feb-2017','DD-MON-YYYY'), to_date('22-Feb-2017','DD-MON-YYYY'));
 
 INSERT INTO PartOrder VALUES(0,0,1);
-INSERT INTO PartOrder VALUES(0,2,1);
-INSERT INTO PartOrder VALUES(0,3,1);
+INSERT INTO PartOrder VALUES(1,0,1);
+INSERT INTO PartOrder VALUES(2,0,1);
 
-INSERT INTO PartOrder VALUES(1,2,1);
+INSERT INTO PartOrder VALUES(1,1,1);
