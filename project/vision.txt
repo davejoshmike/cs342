@@ -1,0 +1,5 @@
+The plan is to implement a database meant for personal finance. I.e. tracking where your money goes, seeing how much of what is made goes to taxes, loans, savings, etc. 
+Potential users are: 
+1. anyone who files taxes
+2. someone who is interested in taking a proactive stance towards money management.
+3. people who have interest in the conveyence of complex data in the form of simple charts and graphs
