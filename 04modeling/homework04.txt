@@ -1,0 +1,34 @@
+Homework04
+4.1:
+	a. The Book table is in 1NF because there are no sets or tuples. It is not in BCNF because a non-key attribute (b_type) F.D.s another non-key attribute (list_price)
+
+	b.
+		 1) Book (b_title, b_type, publisher, list_price)
+			 Author(a_name, a_affil)
+
+	This normalization step separates the FDs that are primary keys into different tables. The database is now in 3NF
+
+		 2) Book(b_title, b_type, publisher)
+			  BookPrice(b_type, list_price)
+			  Author(a_name, a_affil)
+
+	This normalization step removes the prime attribute from the Book table, giving the b_type -> list_price tuple its own table
+
+4.2:
+	a. 
+		{Author, Edition} and all permutations containing the two attributes are the candidate keys
+
+	b. 
+		{Book} ->> {Author}| {Edition, Year}
+
+	Given edition and year, the authors Navathe and Elmosa have the same Book_Name (DB_Fun). Here we can see that Book_Name determines a finite list of Authors for each Book_Name. This indeed signals a multivalue dep.
+
+	c. 
+		Book(Book_id, Book_Name, Author)
+		BookEditionYear(Book_id, Edition, Year)
+		
+	This normalization eliminates any multi-value dependencies. The dependencies are now:
+		Book_id -> Book_Name, Author
+		Book_id -> Edition, Year
+
+	This form is now in 4NF because all of the attributes on the left hand side are superkeys and there are no more multi-value dependencies. Best of all, the relations are still perserved.
