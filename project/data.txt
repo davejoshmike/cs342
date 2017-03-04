@@ -1,0 +1,3 @@
+I generated my data from generatedata.com. This suited my needs very well. Allowing me to specify columns and ranges and generate insert statements for oracle. I also manually entered data for the income tax bracket table based on the real-life data found on https://www.tax-brackets.org/
+
+I do not have any tuples within my dataset, which satisfies First Normalized Form. 
