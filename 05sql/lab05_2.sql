@@ -1,7 +1,6 @@
 ﻿-- Exercise 5.2
 -- a.
-    SELECT * FROM PERSON WHERE BIRTHDATE IS NOT NULL AND ROWNUM <=1 ORDER BY To_char(BIRTHDATE, 'YYYY') DESC;
-    --incomplete
+    --SELECT * FROM PERSON WHERE BIRTHDATE IS NOT NULL AND ROWNUM <=5 ORDER BY To_char(BIRTHDATE, 'YYYY') ASC;
 	SELECT * FROM PERSON WHERE to_char(BIRTHDATE, 'YYYY')=(SELECT Min(to_char(Birthdate,'YYYY')) from person) AND ROWNUM <=1;
 	
 -- b.
@@ -10,5 +9,4 @@
 	
 --c.
     select p.FIRSTNAME||' '||p.LASTNAME, pt.TEAMNAME from PERSON p, PERSONTEAM pt, TEAM t where p.id=pt.personid AND pt.TEAMNAME='Music' AND p.homegroupid<>(select p.homegroupid from homegroup h where p.homegroupid = h.id AND h.NAME='Byl');
-    
 	-- incomplete
