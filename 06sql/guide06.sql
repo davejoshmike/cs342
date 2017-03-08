@@ -18,5 +18,23 @@
         ;
 
 -- Aggregate
-    select *, min(year)
-        from movies
+    -- Oldest Movie
+    select min(year)
+        from movie
+        ;
+
+    -- Best Rated Movie
+    select max(score)
+        from movie
+        ;
+
+    -- Avg score
+    select avg(score)
+        from movie
+        ;
+
+-- Grouping
+    select count(*)
+        from casting
+        group by performerid
+        ;
