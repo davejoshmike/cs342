@@ -1,40 +1,46 @@
 --Write SQL queries that:
 
 	-- 1. Get a list of the employees who have finished all of their jobs (i.e., all their jobs in the job_history table have non-null end_dates).
-	select distinct e.* from employees e, job_history jh where jh.end_dates IS NOT NULL; 
+	select distinct e.*
+    from (employees e JOIN job_history jh
+         ON jh.end_date IS NOT NULL
+         AND e.employee_id = jh.employee_id)
+    ORDER BY e.employee_id; 
 	
 	-- 2. Get a list of employees along with their manager such that the managers have less seniority at the company and that all the employees’ jobs have been within the manager’s department.
-	select emp.*
-	from employees emp
-	where emp.hire_date <= 
-		(select man.hire_date 
-		from employees man 
-		where emp.manager_id=man.employee_id) 
-	AND emp.employee_id = 
-		(select emp.employee_id 
-		FROM departments dep 
-		WHERE dep.department_id = emp.department_id 
-		AND emp.manager_id = dep.manager_id);
+    select emp.employee_id, emp.first_name || ' ' || emp.last_name employee_name,
+        man.employee_id manager_id, man.first_name || ' ' || man.last_name manager_name, department_name
+	from (((employees emp JOIN employees man
+        ON emp.manager_id=man.employee_id
+        AND emp.HIRE_DATE <= man.HIRE_DATE)
+        JOIN Departments dep
+        ON emp.DEPARTMENT_ID = dep.DEPARTMENT_ID
+        AND emp.MANAGER_ID = dep.MANAGER_ID));
+--    WHERE 
+--    (emp.employee_id, man.department_id) in 
+--    (select distinct jh.employee_id, jh.department_id from job_history jh)
+--    ;
 
-	--NOTES:
-		-- employee:
-		-- emp_id 	fname lname   email    phone# hire_date jobid comis manid depid
-		-- 102 		lex   de haan ldehaan  515... 13-JAN-01 AD_VP 17000 100   90
-		
-		--manager:
-		-- 100 steven king ad_pres 90
-		
-		--department:
-		-- 90 executive 100 1700
+    -- attempt at checking that all the employees jobs have been in the managers department
+--    select distinct jh.*
+--        from EMPLOYEES emp, JOB_HISTORY jh, employees man
+--        where emp.EMPLOYEE_ID = jh.EMPLOYEE_ID
+--        AND man.department_id = jh.department_id;
+
+--    select distinct emp.*
+--    from employees emp, job_history jh, employees man
+--    where emp.employee_id = man.employee_id
+--    AND (emp.employee_id, man.department_id) in 
+--    (select distinct jh.employee_id, jh.department_id from job_history jh)
+--    ;
 	
 	-- 3. The countries in which at least one department is located. Try to write this as both a join and a nested query. If you can, explain which is better. If you can’t, explain which is not possible and why.
-		select * from Locations where location_id= (select location_id from departments where rownum <=1);
-		
-	
-	
-	0 200
-	(xrightwall)
-	current xpos > (xrightwall)
-	heading(200) -- rotate a random amount of degrees from 200-340
-		
-	
+		-- nested
+        select country_id, count(*) from Locations where location_id in (select location_id from Departments) group by country_id;
+        	    
+        -- join
+        select country_id, count(*) from (Locations JOIN DEPARTMENTS ON DEPARTMENTS.LOCATION_ID=LOCATIONS.LOCATION_ID) group by country_id;
+
+        -- join queries have the ability to be optimized better at the machine level than subqueries do
+        -- because they are better able to be predicted than subqueries. Therefore it is better to use
+        -- join queries rather than subqueries
