@@ -1,0 +1,21 @@
+Read Section 13.4.1:
+	i. Explain the concept of stored procedures
+	
+	
+Read Section 26.1:
+	i. Explain the concept of triggers
+	
+	
+Read Server-Side Programming: PL/SQL and Java:
+	i. Compare and contrast procedural and non-procedural languages.
+	
+	
+	ii. Explain why one would want to do server-side programming using PL/SQL.
+	
+	
+	iii. Know how to implement PL/SQL subprograms and anonymous blocks.
+	
+	
+	iv. Know how to implement a trigger with specific initiation settings.
+	
+	
