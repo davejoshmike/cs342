@@ -28,7 +28,7 @@ CREATE MATERIALIZED VIEW BIRTHDAYCZARMATVIEW FOR UPDATE AS
     -- was updated. 
 
 --c.
-    INSERT INTO birthdayczarmatview VALUES (16, 'Bobby', 'Dylan', TO_DATE('01/01/1975','MM/DD/YYYY'));
+    INSERT INTO birthdayczarmatview VALUES ((select max(id)+1 from birthdayczarmatview), 'Bobby', 'Dylan', TO_DATE('01/01/1975','MM/DD/YYYY'));
     -- the materialized view is required to be key persistant, which means we
     -- are allowed to insert an entry as long as there are no constraints violated
     -- on the base table. The rest of the fields will be NULL in the base table.
@@ -38,5 +38,6 @@ CREATE MATERIALIZED VIEW BIRTHDAYCZARMATVIEW FOR UPDATE AS
 
 --d. 
     DROP VIEW birthdayczarmatview;
+    select * from Person;
     -- The row that was inserted above didn't get saved when the materialized view
     -- was deleted. So dropping the view deleted the row that was inserted.
