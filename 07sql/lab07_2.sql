@@ -1,6 +1,6 @@
 ﻿-- Exercise 7.1
-DROP VIEW birthdayczarmatview;
-CREATE MATERIALIZED VIEW BIRTHDAYCZARMATVIEW FOR UPDATE AS 
+DROP MATERIALIZED VIEW birthdayczarmatview;
+CREATE MATERIALIZED VIEW birthdayczarmatview FOR UPDATE AS 
     (SELECT id,
         firstname, 
         lastname, 
@@ -37,7 +37,7 @@ CREATE MATERIALIZED VIEW BIRTHDAYCZARMATVIEW FOR UPDATE AS
     --from PERSON
 
 --d. 
-    DROP VIEW birthdayczarmatview;
+    DROP MATERIALIZED VIEW birthdayczarmatview;
     select * from Person;
     -- The row that was inserted above didn't get saved when the materialized view
     -- was deleted. So dropping the view deleted the row that was inserted.
