@@ -21,5 +21,4 @@ GRANT
 CONNECT personalfinance/BuyMe8
 
 -- Create the database
--- DEFINE personalfinance=C:\Users\OrangeJuice\Documents\cs342\cs342\project
 DEFINE personalfinance=C:\Users\OrangeJuice\Documents\cs342\cs342\project

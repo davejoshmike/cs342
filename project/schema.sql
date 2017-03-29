@@ -6,7 +6,7 @@ CREATE TABLE State (
     );
 
 CREATE TABLE TaxYear (
-    year date PRIMARY KEY
+    year date PRIMARY KEY CHECK (year>to_date('01-JAN-1900','DD-MON-YYYY'))
     );
 
 CREATE TABLE IncomeTax (
@@ -82,7 +82,7 @@ CREATE TABLE Loan (
     personId integer,
     type varchar(15) CHECK (type IN ('auto','mortgage','student')),
     subsidized char(1) CHECK (subsidized IN ('Y', 'N')),
-    monthyRate float,
+    monthlyRate float,
     FOREIGN KEY (personId) REFERENCES Person(ID),
     PRIMARY KEY (personId)
     );
