@@ -7,3 +7,5 @@ drop table Wage;
 drop table IncomeTax;
 drop table IncomeTaxBracket;
 drop table Person;
+drop table TaxYear;
+drop table State;
