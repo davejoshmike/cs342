@@ -1,21 +1,84 @@
 Read Section 13.4.1:
 	i. Explain the concept of stored procedures
-	
+	A file that executes a set of queries against a database
 	
 Read Section 26.1:
 	i. Explain the concept of triggers
-	
+	A trigger is essentially an event handler that fires when a row or column, or database is updated or changed, running a set of queries. Often an event listener will be set to run the event handler when the database is updated or a specific column is changed.
+	Can be thought of as a subprogram that runs when an event fires off.
 	
 Read Server-Side Programming: PL/SQL and Java:
 	i. Compare and contrast procedural and non-procedural languages.
-	
+	procedural languages are important when the order of execution is important in determine the execution of the program.
 	
 	ii. Explain why one would want to do server-side programming using PL/SQL.
-	
+	The sql statements are compiled and do not require compilation at execution time. Stored Procedures also allow you to store shared queries and avoid redundant queries. It also reduces the likelihood of mistakes made by running untested queries. This is especially important with update and delete queries, as very bad things can happen when these statements are used incorrectly or without assurance of success
 	
 	iii. Know how to implement PL/SQL subprograms and anonymous blocks.
+	subprogram: a PL/SQL block whose parsed representation is stored in the database
+	DECLARE
+		-- PL/SQL Procedure
+		PROCEDURE get_taxes (
+			firstname VARCHAR2,
+			lastname VARCHAR2,
+			year INTEGER
+		)
+		IS
+		BEGIN
+			SELECT yearlywage
+			FROM Wage w JOIN Person p 
+			ON p.firstname=firstname
+			AND p.lastname=lastname
+			AND p.year=year
+			AND w.personId=p.id;
+		END get_taxes;
+		
+		-- PL/SQL Function
+		FUNCTION computeTax (wage NUMBER)
+			RETURN NUMBER
+		AS
+			bracket NUMBER
+			taxRate NUMBER
+		BEGIN
+			SELECT taxrate INTO taxRate
+			FROM Taxes
+			WHERE wage<=bmax
+			AND wage > bmin;
+			
+			RETURN taxRate;
+		END;
+		wage NUMBER;
+		taxRate NUMBER;
+	BEGIN
+		EXECUTE get_taxes ('Bob', 'Dylan', 2016) INTO wage;
+		EXECUTE computeTax(wage) INTO taxRate;
+		DBMS_OUTPUT.PUT_LINE(taxRate);
+	END;
+	/
 	
+	anonymous block: a PL/SQL block that is not stored in the database (just don't save the file as a subprogram)
+	DECLARE
+		dylanTaxes varchar2(15);
+	BEGIN
+		EXECUTE get_taxes ('Bob','Dylan',2016) INTO dylanTaxes;
+	END;
+	/
 	
 	iv. Know how to implement a trigger with specific initiation settings.
-	
-	
+	DML: modification of data (i.e. insert, delete)
+	DDL: definining schema objects (i.e. create, adding columns)
+	Database Events: (i.e. login, logoff, shutdown)
+	CREATE OR REPLACE TRIGGER RecalculateTaxRate_Trigger
+		AFTER UPDATE OR INSERT ON Person
+	BEGIN
+		IF (INSERTING)
+		THEN
+			EXECUTE get_taxes ('Bob', 'Dylan', 2016);
+			EXECUTE get_taxeRates ('Bob', 'Dylan', 2016);
+		END IF;
+		IF (UPDATING)
+		THEN
+			EXECUTE get_taxeRates ('Bob', 'Dylan', 2016);
+		END IF;
+	END;
+	/
