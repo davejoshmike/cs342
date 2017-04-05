@@ -1,4 +1,4 @@
--------------------------------------------------------------------------------------
+﻿-------------------------------------------------------------------------------------
 -- Exercise 8.1:
 -- implement the ability to allow programmers to cast a new actor (by id) to a movie 
 -- (by ID). 
@@ -9,11 +9,11 @@
 		
 -- TRIGGER
 CREATE OR REPLACE TRIGGER cast_actor_trigger 
-	AFTER INSERT OR UPDATE ON Role FOR EACH ROW
+	BEFORE INSERT OR UPDATE ON Role FOR EACH ROW
 	DECLARE
-		PROCEDURE check_multi_roles (actorID NUMBER, movieID NUMBER, role VARCHAR2(100))
-			AS
-				actorExist NUMBER;
+		PROCEDURE check_multi_roles (actorID NUMBER, movieID NUMBER, role VARCHAR2)
+			IS
+				actorExist NUMBER(38);
 				tooManyRoles EXCEPTION;
 			BEGIN
 				-- actors can't be cast more than once
@@ -32,14 +32,13 @@ CREATE OR REPLACE TRIGGER cast_actor_trigger
 				EXCEPTION
 					WHEN tooManyRoles
 					THEN
-						DBMS_OUTPUT.PUT_LINE("Duplicate Role: Actor can't be cast more than once in the same movie");
-						RAISE_APPLICATION_ERROR(-20001);
+						RAISE_APPLICATION_ERROR(-20002, 'Duplicate Role: Actor cant be cast more than once in the same movie');
 			END;
 		
 		PROCEDURE check_castings (movieID NUMBER) 
-			AS
-				castingLimit NUMBER := 230;
-				castingAmt NUMBER;
+			IS
+				castingLimit CONSTANT NUMBER(3) := 230;
+				castingAmt NUMBER(38);
 				tooManyCastings EXCEPTION;
 			BEGIN
 				SELECT count(*) INTO castingAmt
@@ -54,8 +53,7 @@ CREATE OR REPLACE TRIGGER cast_actor_trigger
 			EXCEPTION 
 				WHEN tooManyCastings
 				THEN
-					DBMS_OUTPUT.PUT_LINE("Movie Full: Casting limit reached.");
-					RAISE_APPLICATION_ERROR(-20001,);
+					RAISE_APPLICATION_ERROR(-20001, 'Movie Full: Casting limit reached.');
 			END;
 ----------------------
 -- Start of Trigger --
@@ -64,14 +62,15 @@ CREATE OR REPLACE TRIGGER cast_actor_trigger
 		-- Insert
 		IF (INSERTING OR UPDATING)
 		THEN
-			EXECUTE check_castings(:new.movieID);
-			EXECUTE check_multi_roles(:new.actorID, :new.movieID, :new.role);
+            -- Note: EXECUTE is sql*plus syntax, not PLSQL
+			check_castings(:new.movieID);
+			check_multi_roles(:new.actorID, :new.movieID, :new.role);
 		END IF;
 	END;
 /
 	
 -- Cast actor into role
-CREATE OR REPLACE PROCEDURE cast_actor (actorID NUMBER(38), movieID NUMBER(38), role VARCHAR2(100))
+CREATE OR REPLACE PROCEDURE cast_actor (actorID NUMBER, movieID NUMBER, role VARCHAR2)
 	IS
 	BEGIN		
 		INSERT INTO Role (actorID, movieID, role) VALUES (actorID, movieID, role);
@@ -84,13 +83,15 @@ CREATE OR REPLACE PROCEDURE cast_actor (actorID NUMBER(38), movieID NUMBER(38), 
 DECLARE	
 -- nothing to declare
 BEGIN
-	-- a. Cast George Clooney (# 89558) as “Danny Ocean” in Oceans Eleven (#238072). N.b., he’s already cast in this movie
-	EXECUTE cast_actor(89558, 238072, "Danny Ocean");
+	-- a. Cast George Clooney (# 89558) as Danny Ocean' in Oceans Eleven (#238072). N.b., he’s already cast in this movie
+	cast_actor(89558, 238072, 'Danny Ocean');
+    -- Error: Duplicate Cast 
 
-	-- b. Cast George Clooney as “Danny Ocean” in Oceans Twelve (#238073). N.b., he’s not currently cast in this movie.
-	EXECUTE cast_actor(89558, 238073, "Danny Ocean");
+	-- b. Cast George Clooney as 'Danny Ocean' in Oceans Twelve (#238073). N.b., he’s not currently cast in this movie.
+	cast_actor(89558, 238073, 'Danny Ocean');
 
-	-- c. Cast George Clooney as “Danny Ocean” in JFK (#167324). N.b., this movie already has 230 castings.
-	EXECUTE cast_actor(89558, 167324, "Danny Ocean");
+	-- c. Cast George Clooney as 'Danny Ocean' in JFK (#167324). N.b., this movie already has 230 castings.
+	cast_actor(89558, 167324, 'Danny Ocean');
+    -- Error: Movie Full: Casting limit reached.
 END;
 /
