@@ -80,6 +80,8 @@ IS
     -- select the actorids from the movieids that kevin bacon has been in 
         -- that arent in the bacon table
         -- or are kevin bacon himself
+
+    -- gets the cursor of actors we are going to compute the bacon numbers for
     CURSOR newactors IS
     (SELECT DISTINCT r.actorId
     FROM Role r
