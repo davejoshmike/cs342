@@ -1,0 +1,22 @@
+SQL> SET AUTOCOMMIT OFF;
+SQL> SELECT rank FROM MOVIE WHERE id=238071;
+
+      RANK                                                                      
+----------                                                                      
+       8.5                                                                      
+
+SQL> UPDATE Movie SET rank=rank-.1 WHERE id=238071;
+
+1 row updated.
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> SELECT rank FROM MOVIE WHERE id=238071;
+
+      RANK                                                                      
+----------                                                                      
+       8.6                                                                      
+
+SQL> SPOOL OFF

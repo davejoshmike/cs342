@@ -1,0 +1,12 @@
+SQL> SELECT rank FROM MOVIE WHERE id=238071;
+
+      RANK                                                                      
+----------                                                                      
+       8.5                                                                      
+                                                                 
+SQL> UPDATE Movie SET rank=8.7 WHERE id=238071;
+
+1 row updated.
+
+Commit complete.
+SQL> SPOOL OFF

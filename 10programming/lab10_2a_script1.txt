@@ -1,0 +1,22 @@
+SQL> SET AUTOCOMMIT ON;
+SQL> SELECT rank FROM MOVIE WHERE id=238071 FOR UPDATE;
+
+      RANK                                                                      
+----------                                                                      
+       8.5                                                                      
+
+SQL> update movie set rank=8.4 where id=238071;
+
+1 row updated.
+
+Commit complete.
+SQL> SELECT rank FROM MOVIE WHERE id=238071;
+
+      RANK                                                                      
+----------                                                                      
+       8.7                                                                     
+
+SQL> SPOOL OFF
+
+Notes:
+	unfortunately there is little to no solution because there is no way to lock a table or row for reading. We would have to compress the select and the update statement into one statement, which I don't think is possible.
