@@ -16,8 +16,8 @@ CREATE TABLE IncomeTax (
     filingType varchar(15) CHECK (filingType IN ('single', 'joint', 'head')) not null,
     flat char(1) CHECK (flat IN ('Y','N')) not null,
     year number(4) not null,
-    FOREIGN KEY (state) REFERENCES State(state),
-    FOREIGN KEY (year) REFERENCES TaxYear(year),
+    FOREIGN KEY (state) REFERENCES State(state) ON DELETE CASCADE,
+    FOREIGN KEY (year) REFERENCES TaxYear(year) ON DELETE CASCADE,
     PRIMARY KEY (id)
     );
 -- PRIMARY KEY (state, filingtype, year, bracketlevel)
@@ -35,7 +35,7 @@ CREATE TABLE IncomeTaxBracket (
     rate float not null,
     bmin float,
     bmax float,
-    FOREIGN KEY (id) REFERENCES IncomeTax(id),
+    FOREIGN KEY (id) REFERENCES IncomeTax(id) ON DELETE CASCADE,
     PRIMARY KEY (id, bracketLevel)
     );
 
@@ -57,8 +57,8 @@ CREATE TABLE Tax (
 	why varchar(25) CHECK (why IN ('income', 'medical')),
 	rate float,
 	taxYear number(4) not null,	
-	FOREIGN KEY (personId) REFERENCES Person(ID),
-    FOREIGN KEY (taxYear) REFERENCES TaxYear(year),
+	FOREIGN KEY (personId) REFERENCES Person(ID) ON DELETE CASCADE,
+    FOREIGN KEY (taxYear) REFERENCES TaxYear(year) ON DELETE CASCADE,
     PRIMARY KEY (personId)
 	);
 --For rates column:
@@ -71,7 +71,7 @@ CREATE TABLE Wage (
 	hourlyWage float,
 	yearlyWage float,
 	bonus float,
-	FOREIGN KEY (personId) REFERENCES Person(ID),
+	FOREIGN KEY (personId) REFERENCES Person(ID) ON DELETE CASCADE,
     PRIMARY KEY (personId)
 	);
 	-- should a person be able to have more than one wage?
@@ -83,7 +83,7 @@ CREATE TABLE Loan (
     type varchar(15) CHECK (type IN ('auto','mortgage','student')),
     subsidized char(1) CHECK (subsidized IN ('Y', 'N')),
     monthlyRate float,
-    FOREIGN KEY (personId) REFERENCES Person(ID),
+    FOREIGN KEY (personId) REFERENCES Person(ID) ON DELETE CASCADE,
     PRIMARY KEY (personId)
     );
 
@@ -91,6 +91,6 @@ CREATE TABLE Savings (
     personId integer,
     monthlyRate float,
     cap float,
-    FOREIGN KEY (personId) REFERENCES Person(ID),
+    FOREIGN KEY (personId) REFERENCES Person(ID) ON DELETE CASCADE,
     PRIMARY KEY (personId)
     );
