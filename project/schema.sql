@@ -6,7 +6,7 @@ CREATE TABLE State (
     );
 
 CREATE TABLE TaxYear (
-    year date PRIMARY KEY CHECK (year>to_date('01-JAN-1900','DD-MON-YYYY'))
+    year NUMBER(4) PRIMARY KEY CHECK (year>1900)
     );
 
 CREATE TABLE IncomeTax (
@@ -15,7 +15,7 @@ CREATE TABLE IncomeTax (
     state varchar(15) not null,
     filingType varchar(15) CHECK (filingType IN ('single', 'joint', 'head')) not null,
     flat char(1) CHECK (flat IN ('Y','N')) not null,
-    year date not null,
+    year number(4) not null,
     FOREIGN KEY (state) REFERENCES State(state),
     FOREIGN KEY (year) REFERENCES TaxYear(year),
     PRIMARY KEY (id)
@@ -56,7 +56,7 @@ CREATE TABLE Tax (
 	who varchar(25) CHECK (who IN ('state','medicare','social security','federal')),
 	why varchar(25) CHECK (why IN ('income', 'medical')),
 	rate float,
-	taxYear date not null,	
+	taxYear number(4) not null,	
 	FOREIGN KEY (personId) REFERENCES Person(ID),
     FOREIGN KEY (taxYear) REFERENCES TaxYear(year),
     PRIMARY KEY (personId)
