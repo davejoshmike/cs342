@@ -30,7 +30,7 @@ CREATE MATERIALIZED VIEW TaxRate AS
         WHERE itb.id =
             (SELECT it.id 
                 FROM IncomeTax it 
-                WHERE to_date('2016', 'YYYY') = it.year
+                WHERE 2016 = it.year
                 AND p.filingType = it.filingtype
                 AND p.state = it.state)
 )
