@@ -4,5 +4,8 @@ Exercise 11.1:
 	e. GlassFish runs a javax.servlet, which serves up the .jsp web page
 	f. A WAR file is just a JAR file for the web. 
 	g. An exploded WAR file is just the extracted WAR file that is ready for deployment to a web server
-	h. EAR contains more files than just what the WAR contains
+	h. EAR contains all of the project compnents, not just the servlets and jsps. EAR is a much bigger artifact and is more for the whole entire project, not just one jsp
+	
+Exercise 11.2:
+	The application uses JAX-RS to create the REST endpoints and JAXB to serialize/deserialize classes
 	
