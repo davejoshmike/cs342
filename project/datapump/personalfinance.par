@@ -1,0 +1,4 @@
+DIRECTORY=exp_dir
+DUMPFILE=personalfinance.dmp 
+LOGFILE=personalfinance.log
+TABLES=personalfinance.incometax,personalfinance.incometaxbracket,personalfinance.loan,personalfinance.person,personalfinance.savings,personalfinance.state,personalfinance.tax,personalfinance.taxyear,personalfinance.wage
