@@ -11,6 +11,6 @@
     <title>Lab 11</title>
   </head>
   <body>
-    Hello World!
+    Hello!
   </body>
 </html>
