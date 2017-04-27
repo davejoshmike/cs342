@@ -1,0 +1,29 @@
+;;; 
+Export: Release 11.2.0.1.0 - Production on Fri Apr 21 14:08:42 2017
+
+Copyright (c) 1982, 2009, Oracle and/or its affiliates.  All rights reserved.
+;;; 
+Connected to: Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+Starting "PERSONALFINANCE"."SYS_EXPORT_TABLE_01":  personalfinance/********@localhost parfile=personalfinance.par 
+Estimate in progress using BLOCKS method...
+Processing object type TABLE_EXPORT/TABLE/TABLE_DATA
+Total estimation using BLOCKS method: 512 KB
+Processing object type TABLE_EXPORT/TABLE/TABLE
+Processing object type TABLE_EXPORT/TABLE/CONSTRAINT/CONSTRAINT
+Processing object type TABLE_EXPORT/TABLE/INDEX/STATISTICS/INDEX_STATISTICS
+Processing object type TABLE_EXPORT/TABLE/CONSTRAINT/REF_CONSTRAINT
+Processing object type TABLE_EXPORT/TABLE/STATISTICS/TABLE_STATISTICS
+. . exported "PERSONALFINANCE"."INCOMETAX"               7.390 KB      10 rows
+. . exported "PERSONALFINANCE"."INCOMETAXBRACKET"        7.460 KB      34 rows
+. . exported "PERSONALFINANCE"."LOAN"                    6.281 KB       1 rows
+. . exported "PERSONALFINANCE"."PERSON"                  8.484 KB      32 rows
+. . exported "PERSONALFINANCE"."STATE"                   5.078 KB       5 rows
+. . exported "PERSONALFINANCE"."TAX"                     6.718 KB       1 rows
+. . exported "PERSONALFINANCE"."TAXYEAR"                 5.062 KB       1 rows
+. . exported "PERSONALFINANCE"."WAGE"                    6.851 KB      32 rows
+. . exported "PERSONALFINANCE"."SAVINGS"                     0 KB       0 rows
+Master table "PERSONALFINANCE"."SYS_EXPORT_TABLE_01" successfully loaded/unloaded
+******************************************************************************
+Dump file set for PERSONALFINANCE.SYS_EXPORT_TABLE_01 is:
+  C:\USERS\ORANGEJUICE\DOCUMENTS\CS342\CS342\PROJECT\DATAPUMP\PERSONALFINANCE.DMP
+Job "PERSONALFINANCE"."SYS_EXPORT_TABLE_01" successfully completed at 14:08:56
