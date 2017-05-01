@@ -1,1 +1,15 @@
-The oracle pool allows the glassfish rest api to directly communicate with the database. The "Intellij" database connection allows the code
+Exercise 12.1:
+	1. The oracle pool allows the glassfish rest api to directly communicate with the database. The "Intellij" database connection allows the project to serialize (or marshall) the database objects into Java objects
+
+Exercise 12.2:
+	1. It uses the Persistence API to do object-relational mapping between a java object and the relational database
+	2. The PK class implements Serializable, and provides checks on the PersonTeamEntity.
+	3. field annotations
+	
+Exercise 12.3:
+	1. The restful service does not have to marshall anything, however the entity manager has to convert relations into java objects to be used in java code.
+	2. It uses an injection for the Entity classes in the entity manager in order to determine the type of object/table to run a query on. 
+	3. The entity manager keeps track of database connection, transactions, database model, queries, etc.
+	
+Exercise 12.4:
+	1. whenever a person is queried, it also queries the household and the team table (lazy loading)
