@@ -1,6 +1,6 @@
-
-
+import models.HouseholdEntity;
 import models.PersonEntity;
+import models.TeamEntity;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -16,6 +16,8 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
+
+import static java.lang.System.in;
 
 /**
  * This stateless session bean serves as a RESTful resource handler for the CPDB.
@@ -74,4 +76,56 @@ public class CPDBResource {
         return em.createQuery(em.getCriteriaBuilder().createQuery(PersonEntity.class)).getResultList();
     }
 
+    @POST
+    @Path("person/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void updatePerson(@PathParam("id") long id, ){
+
+    }
+
+    /**
+     * GET an individual person record.
+     *
+     * @param id the ID of the person to retrieve
+     * @return a person record
+     */
+    @GET
+    @Path("household/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<PersonEntity> getPeopleByHousehold(@PathParam("id") long id) {
+        HouseholdEntity household = em.find(HouseholdEntity.class, id);
+        List<PersonEntity> personList = em.createQuery(em.getCriteriaBuilder().createQuery(PersonEntity.class)).getResultList();
+        for(PersonEntity personEntity : personList){
+            personEntity.getName().getId() == household.getId()
+        }
+        return em.find(HouseholdEntity.class, id);
+    }
+
+    /**
+     * GET an individual person record.
+     *
+     * @param name the name of the team to retrieve
+     * @return a team record
+     */
+    @GET
+    @Path("team/{name}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public TeamEntity getTeam(@PathParam("name") String name) {
+        return em.find(TeamEntity.class, name);
+    }
+
+    /**
+     * GET all teams using the criteria query API.
+     * This could be refactored to use a JPQL query, but this entitymanager-based approach
+     * is consistent with the other handlers.
+     *
+     * @return a list of all team records
+     */
+    @GET
+    @Path("teams")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<TeamEntity> getTeams() {
+        return em.createQuery(em.getCriteriaBuilder().createQuery(TeamEntity.class)).getResultList();
+    }
 }
