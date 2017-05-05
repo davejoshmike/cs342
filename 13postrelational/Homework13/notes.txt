@@ -1,0 +1,5 @@
+Homework 13
+	Exercise 13.2:
+		a. Key-Value pair
+		b. I would say graph based sounds good in theory, however there would be a huge number of edges in the graph. If space/performance is not an issue, I would say that Key-value is better optimized and suited to handle a large database such as imdb's
+		c. 
