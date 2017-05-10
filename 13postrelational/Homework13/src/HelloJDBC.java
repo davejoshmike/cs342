@@ -27,13 +27,18 @@ public class HelloJDBC {
 		KVStore store = KVStoreFactory.getStore(new KVStoreConfig(
 				"kvstore", "localhost:5000"));
 
-
 		LoadDB(jdbcConnection, store);
-		Hashtable<String, String> movieTableValues = GetTableValues(store);
-		System.out.println(movieTableValues);
+//		Hashtable<String, String> movieTableValues = GetTableValues(store);
+//		System.out.println(movieTableValues);
 
-		String roleValues = GetMovieActorRoles(store);
-		System.out.println(roleValues);
+//		String roleValues = GetMovieActorRoles(store);
+//		System.out.println(roleValues);
+
+//		String movieActorValues = GetMovieActors(store);
+//		System.out.println(movieActorValues);
+
+		String sortedMovies = GetSortedMovies(store);
+		System.out.println(sortedMovies);
 
 		jdbcConnection.close();
 		store.close();
@@ -157,9 +162,8 @@ public class HelloJDBC {
 	// @return something like this:
 	//		Table: movie
 	//		ID: 92616
-	//				Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb
-	// 				1964
-	//				8.7
+	//			name: Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb
+	// 			year: 1964
 	public static Hashtable<String, String> GetTableValues(KVStore store) {
 		String returnValue = "";
 		String table = "movie";
@@ -186,6 +190,7 @@ public class HelloJDBC {
 		String table = "role";
 		String actorId = "429719";
 		String movieId = "92616";
+		String minorField = "role";
 		String returnValue = "";
 
 		returnValue += "Table: " + table;
@@ -194,8 +199,10 @@ public class HelloJDBC {
 		returnValue += "\nMovie ID: " + movieId + "\n";
 
 
-		Key majorkeyPathOnly = Key.createKey(Arrays.asList(table, actorId, movieId));
+		Key majorkeyPathOnly = Key.createKey(Arrays.asList(table, actorId, movieId),
+				Arrays.asList(minorField));
 
+		// gets everything from role
 		Map<Key, ValueVersion> fields = store.multiGet(majorkeyPathOnly, null, null);
 		for (Map.Entry<Key, ValueVersion> field : fields.entrySet()) {
 			String fieldName = field.getKey().getMinorPath().get(0);
@@ -203,17 +210,36 @@ public class HelloJDBC {
 
 			returnValue += "\t" + fieldName + "\t: " + fieldValue;
 		}
+
 		return returnValue;
 	}
 
 
-	public static void GetMovieActors() {
+	public static void GetMovieActors(KVStore store) {
 		throw new NotImplementedException();
 	}
 
-	public static void GetSortedMovies(KVStore store) {
-		SortedList<ArrayList<String>> movies = GetTableValues(store);
+	// Lists all the movies in order of year
+	public static String GetSortedMovies(KVStore store) {
+		String table = "movie";
+		String returnValue = "";
 
-		throw new NotImplementedException();
+		Key myKey = Key.createKey(Arrays.asList(table));
+		ArrayList<KeyValueVersion> sortedRecords = new ArrayList<KeyValueVersion>();
+		Iterator<KeyValueVersion> i = store.storeIterator(Direction.UNORDERED, 0, myKey, null, null);
+		while(i.hasNext()) {
+			KeyValueVersion current = i.next();
+
+			returnValue += "\nMovieID: " + current.getKey().getMajorPath().get(1);
+
+			String fieldName = current.getKey().getMinorPath().get(0);
+			Value value = current.getValue();
+			returnValue += "\n\t" + fieldName + ": \t " + new String(value.getValue());
+
+			fieldName = current.getKey().getMinorPath().get(1);
+			value = current.getValue();
+			returnValue += "\n\t" + fieldName + ": " + new String(value.getValue());
+		}
+		return returnValue;
 	}
 }
