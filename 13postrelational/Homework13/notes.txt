@@ -1,5 +1,6 @@
 Homework 13
 	Exercise 13.2:
-		a. Key-Value pair
+		a. Key-Value pair, which makes a hashtable based on major/minor key components
 		b. I would say graph based sounds good in theory, however there would be a huge number of edges in the graph. If space/performance is not an issue, I would say that Key-value is better optimized and suited to handle a large database such as imdb's
-		c. 
+		c. Yes, you could just put the actorId as a minorkey in the movie/movieid major key and reverse that as well to use movieid as a minorkey in the actor/actorid major key. If you added the role minor key after the actorid or the movieid, you would effectively eliminate the need for a role as a major key value.
+		d. Basically, you can slap on a lot of things as minor keys and it doesn't have to relate/point/connect to anything. Take movie/movieid/-/actorid, there is not an assurance that all of these actorids are within the actor "table thing". There is no way of adding constraints, checks or relations, making it a schema-less database.

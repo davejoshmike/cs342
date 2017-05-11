@@ -5,9 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import javafx.collections.transformation.SortedList;
 import oracle.kv.*;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.*;
 
@@ -34,8 +32,8 @@ public class HelloJDBC {
 //		String roleValues = GetMovieActorRoles(store);
 //		System.out.println(roleValues);
 
-//		String movieActorValues = GetMovieActors(store);
-//		System.out.println(movieActorValues);
+		String movieActorValues = GetMovieActors(store);
+		System.out.println(movieActorValues);
 
 		String sortedMovies = GetSortedMovies(store);
 		System.out.println(sortedMovies);
@@ -48,7 +46,7 @@ public class HelloJDBC {
 	public static void LoadDB(Connection jdbcConnection, KVStore store) throws SQLException {
 		Statement jdbcStatement = jdbcConnection.createStatement();
 
-		//region LoadMovieTable
+		//region LoadMovieTable - movie/movieid/-/...
 		String table = "movie";
 		ResultSet resultSet = jdbcStatement.executeQuery("SELECT id, name, year FROM " + table);
 
@@ -81,26 +79,49 @@ public class HelloJDBC {
 			//System.out.println(movieId + "\t" + name + "\t" + year);
 		}
 		resultSet.close();
+
+		//region Actor movie/movieid/-/actorid endpoint
+		//constraint to movieId 92616
+		table = "movie";
+		resultSet = jdbcStatement.executeQuery("SELECT r.movieid, a.id, r.role FROM (actor a JOIN role r ON actorid=a.id AND movieid=92616)");
+
+		while(resultSet.next()) {
+			//region Store results into fields
+			String movieid = String.valueOf(resultSet.getInt(1));
+			String actorid = String.valueOf(resultSet.getInt(2));
+			String role = String.valueOf(resultSet.getString(3));
+			//endregion
+
+			//region Put actorid to KVlite
+			movieKey = Key.createKey(Arrays.asList(table, movieid), Arrays.asList("actorid"));
+			movieValue = Value.createValue(actorid.getBytes());
+			store.put(movieKey, movieValue);
+			//endregion
+
+			//region Put actorid/role to KVlite
+			movieKey = Key.createKey(Arrays.asList(table, movieid), Arrays.asList("actorid", "role"));
+			movieValue = Value.createValue(actorid.getBytes());
+			store.put(movieKey, movieValue);
+			//endregion
+		}
+
+		resultSet.close();
 		//endregion
 
-		//region LoadActorTable
+		//endregion
+
+		//region LoadActorTable - actor/actorid/-/...
 		table = "actor";
 		resultSet = jdbcStatement.executeQuery("SELECT id, firstName, lastName, gender FROM " + table);
 
-		//region Fields
-		String actorId;
-		String firstName;
-		String lastName;
-		String gender;
-		//endregion
 		Key actorKey;
 		Value actorValue;
 		while (resultSet.next()) {
 			//region Store fields from Oracle into variables
-			actorId = String.valueOf(resultSet.getInt(1));
-			firstName = String.valueOf(resultSet.getString(2));
-			lastName = String.valueOf(resultSet.getString(3));
-			gender = String.valueOf(resultSet.getString(4));
+			String actorId = String.valueOf(resultSet.getInt(1));
+			String firstName = String.valueOf(resultSet.getString(2));
+			String lastName = String.valueOf(resultSet.getString(3));
+			String gender = String.valueOf(resultSet.getString(4));
 			//endregion
 
 			//region Put firstName to KVlite
@@ -124,28 +145,23 @@ public class HelloJDBC {
 			//System.out.println(actorId + "\t" + firstName + "\t" + lastName + "\t" + gender);
 		}
 		resultSet.close();
-		//endregion LoadActorTable
+		//endregion LoadActorTable -
 
-		//region LoadRoleTable
+		//region LoadRoleTable - role/movieid/actorid/-/role
 		table = "role";
-		resultSet = jdbcStatement.executeQuery("SELECT actorId, movieId, role FROM " + table);
+		resultSet = jdbcStatement.executeQuery("SELECT movieId, actorId, role FROM " + table);
 
-		//region Fields
-		actorId = "";
-		movieId = "";
-		String role;
-		//endregion
 		Key roleKey;
 		Value roleValue;
 		while (resultSet.next()) {
 			//region Store fields from Oracle into variables
-			actorId = String.valueOf(resultSet.getInt(1));
-			movieId = String.valueOf(resultSet.getInt(2));
-			role = String.valueOf(resultSet.getString(3));
+			String movieid = String.valueOf(resultSet.getInt(1));
+			String actorId = String.valueOf(resultSet.getInt(2));
+			String role = String.valueOf(resultSet.getString(3));
 			//endregion
 
 			//region Put role to KVlite
-			roleKey = Key.createKey(Arrays.asList(table, actorId, movieId), Arrays.asList("role"));
+			roleKey = Key.createKey(Arrays.asList(table, movieid, actorId), Arrays.asList("role"));
 			roleValue = Value.createValue(role.getBytes());
 			store.put(roleKey, roleValue);
 			//endregion
@@ -188,19 +204,19 @@ public class HelloJDBC {
 
 	public static String GetMovieActorRoles(KVStore store) {
 		String table = "role";
-		String actorId = "429719";
 		String movieId = "92616";
+		String actorId = "429719";
 		String minorField = "role";
 		String returnValue = "";
 
 		returnValue += "Table: " + table;
 
-		returnValue += "\nActor ID: " + actorId;
-		returnValue += "\nMovie ID: " + movieId + "\n";
+		returnValue += "\nMovie ID: " + movieId;
+		returnValue += "\nActor ID: " + actorId + "\n";
 
 
-		Key majorkeyPathOnly = Key.createKey(Arrays.asList(table, actorId, movieId),
-				Arrays.asList(minorField));
+
+		Key majorkeyPathOnly = Key.createKey(Arrays.asList(table, movieId, actorId));
 
 		// gets everything from role
 		Map<Key, ValueVersion> fields = store.multiGet(majorkeyPathOnly, null, null);
@@ -215,8 +231,33 @@ public class HelloJDBC {
 	}
 
 
-	public static void GetMovieActors(KVStore store) {
-		throw new NotImplementedException();
+	// Get the actors if any, who are cast in a given movie.
+	//
+	// @return the actors in the given movie
+	// Example:
+	//	Movie ID: 92616
+	//		427460	George C. Scott	Gen. 'Buck' Turgidson
+	//		429719	Peter Sellers	Dr. Strangelove
+	//		429719	Peter Sellers	Group Capt. Lionel Mandrake
+	public static String GetMovieActors(KVStore store) {
+		String table1 = "movie";
+		String table2 = "role";
+		String movieId = "92616";
+		String returnValue = "";
+
+		Key majorKeyPath1 = Key.createKey(Arrays.asList(table1, movieId), Arrays.asList("actorid"));
+
+		Map<Key, ValueVersion> fields = store.multiGet(majorKeyPath1, null, null); //get all movie/movieid/-/actorid
+		// for each actorid, get the roles
+		for (Map.Entry<Key, ValueVersion> field : fields.entrySet()) {
+
+			String fieldName = field.getKey().getMinorPath().get(0);
+			String fieldValue = new String(field.getValue().getValue().getValue());
+
+			returnValue += "\t" + fieldName + "\t: " + fieldValue;
+		}
+
+		return returnValue;
 	}
 
 	// Lists all the movies in order of year
@@ -236,9 +277,9 @@ public class HelloJDBC {
 			Value value = current.getValue();
 			returnValue += "\n\t" + fieldName + ": \t " + new String(value.getValue());
 
-			fieldName = current.getKey().getMinorPath().get(1);
-			value = current.getValue();
-			returnValue += "\n\t" + fieldName + ": " + new String(value.getValue());
+//			fieldName = current.getKey().getMinorPath().get(1);
+//			value = current.getValue();
+//			returnValue += "\n\t" + fieldName + ": " + new String(value.getValue());
 		}
 		return returnValue;
 	}
