@@ -26,6 +26,7 @@ namespace PersonalFinanceRestApi.Controllers
 
         // GET: api/Wage/5
         [ResponseType(typeof(WAGE))]
+        [Route("api/Wage/{personid}")]
         public async Task<IHttpActionResult> Get(decimal personid)
         {
             WAGE wage = await db.WAGE.FindAsync(personid);
@@ -39,6 +40,7 @@ namespace PersonalFinanceRestApi.Controllers
 
         // PUT: api/Wage/5
         [ResponseType(typeof(void))]
+        [Route("api/Wage/{personid}")]
         public async Task<IHttpActionResult> Put(decimal personid, WAGE wage)
         {
             if (!ModelState.IsValid)
@@ -98,11 +100,12 @@ namespace PersonalFinanceRestApi.Controllers
                 }
             }
 
-            return CreatedAtRoute("PersonalFinanceApi", new { personid = wage.PERSONID }, wage);
+            return CreatedAtRoute("PersonalFinanceApi", new { id = wage.PERSONID }, wage);
         }
 
         // DELETE: api/Wage/5
         [ResponseType(typeof(WAGE))]
+        [Route("api/Wage/{personid}")]
         public async Task<IHttpActionResult> Delete(decimal personid)
         {
             WAGE wage = await db.WAGE.FindAsync(personid);
