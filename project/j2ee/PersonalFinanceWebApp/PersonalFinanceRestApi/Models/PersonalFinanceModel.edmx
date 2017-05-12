@@ -1,0 +1,666 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PersonalFinanceModel.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="11.2" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="INCOMETAX">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="TYPE" Type="varchar2" MaxLength="15" Nullable="false" />
+          <Property Name="STATE" Type="varchar2" MaxLength="15" Nullable="false" />
+          <Property Name="FILINGTYPE" Type="varchar2" MaxLength="15" Nullable="false" />
+          <Property Name="FLAT" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="YEAR" Type="number" Precision="4" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="INCOMETAXBRACKET">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="BRACKETLEVEL" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="BRACKETLEVEL" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="RATE" Type="float" Precision="126" Scale="0" Nullable="false" />
+          <Property Name="BMIN" Type="float" Precision="126" Scale="0" />
+          <Property Name="BMAX" Type="float" Precision="126" Scale="0" />
+        </EntityType>
+        <EntityType Name="LOAN">
+          <Key>
+            <PropertyRef Name="PERSONID" />
+          </Key>
+          <Property Name="PERSONID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="TYPE" Type="varchar2" MaxLength="15" />
+          <Property Name="SUBSIDIZED" Type="char" MaxLength="1" />
+          <Property Name="MONTHLYRATE" Type="float" Precision="126" Scale="0" />
+        </EntityType>
+        <EntityType Name="PERSON">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="FIRSTNAME" Type="varchar2" MaxLength="15" />
+          <Property Name="LASTNAME" Type="varchar2" MaxLength="15" />
+          <Property Name="STATE" Type="varchar2" MaxLength="15" Nullable="false" />
+          <Property Name="CITY" Type="varchar2" MaxLength="25" />
+          <Property Name="FILINGTYPE" Type="varchar2" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SAVINGS">
+          <Key>
+            <PropertyRef Name="PERSONID" />
+          </Key>
+          <Property Name="PERSONID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="MONTHLYRATE" Type="float" Precision="126" Scale="0" />
+          <Property Name="CAP" Type="float" Precision="126" Scale="0" />
+        </EntityType>
+        <EntityType Name="STATE">
+          <Key>
+            <PropertyRef Name="STATE" />
+          </Key>
+          <Property Name="STATE" Type="varchar2" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TAX">
+          <Key>
+            <PropertyRef Name="PERSONID" />
+          </Key>
+          <Property Name="PERSONID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="WHO" Type="varchar2" MaxLength="25" />
+          <Property Name="WHY" Type="varchar2" MaxLength="25" />
+          <Property Name="RATE" Type="float" Precision="126" Scale="0" />
+          <Property Name="TAXYEAR" Type="number" Precision="4" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TAXYEAR">
+          <Key>
+            <PropertyRef Name="YEAR" />
+          </Key>
+          <Property Name="YEAR" Type="number" Precision="4" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WAGE">
+          <Key>
+            <PropertyRef Name="PERSONID" />
+          </Key>
+          <Property Name="PERSONID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="HOURLYWAGE" Type="float" Precision="126" Scale="0" />
+          <Property Name="YEARLYWAGE" Type="float" Precision="126" Scale="0" />
+          <Property Name="BONUS" Type="float" Precision="126" Scale="0" />
+        </EntityType>
+        <EntityType Name="YEAR">
+          <Key>
+            <PropertyRef Name="YEAR" />
+          </Key>
+          <Property Name="YEAR" Type="date" Nullable="false" />
+        </EntityType>
+        <Association Name="SYS_C008303">
+          <End Role="STATE" Type="Self.STATE" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="INCOMETAX" Type="Self.INCOMETAX" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STATE">
+              <PropertyRef Name="STATE" />
+            </Principal>
+            <Dependent Role="INCOMETAX">
+              <PropertyRef Name="STATE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C008304">
+          <End Role="TAXYEAR" Type="Self.TAXYEAR" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="INCOMETAX" Type="Self.INCOMETAX" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TAXYEAR">
+              <PropertyRef Name="YEAR" />
+            </Principal>
+            <Dependent Role="INCOMETAX">
+              <PropertyRef Name="YEAR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C008308">
+          <End Role="INCOMETAX" Type="Self.INCOMETAX" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="INCOMETAXBRACKET" Type="Self.INCOMETAXBRACKET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="INCOMETAX">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="INCOMETAXBRACKET">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C008313">
+          <End Role="STATE" Type="Self.STATE" Multiplicity="1" />
+          <End Role="PERSON" Type="Self.PERSON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STATE">
+              <PropertyRef Name="STATE" />
+            </Principal>
+            <Dependent Role="PERSON">
+              <PropertyRef Name="STATE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C008318">
+          <End Role="PERSON" Type="Self.PERSON" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TAX" Type="Self.TAX" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="PERSON">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TAX">
+              <PropertyRef Name="PERSONID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C008319">
+          <End Role="TAXYEAR" Type="Self.TAXYEAR" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TAX" Type="Self.TAX" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TAXYEAR">
+              <PropertyRef Name="YEAR" />
+            </Principal>
+            <Dependent Role="TAX">
+              <PropertyRef Name="TAXYEAR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C008321">
+          <End Role="PERSON" Type="Self.PERSON" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="WAGE" Type="Self.WAGE" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="PERSON">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="WAGE">
+              <PropertyRef Name="PERSONID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C008325">
+          <End Role="PERSON" Type="Self.PERSON" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="LOAN" Type="Self.LOAN" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="PERSON">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LOAN">
+              <PropertyRef Name="PERSONID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C008327">
+          <End Role="PERSON" Type="Self.PERSON" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SAVINGS" Type="Self.SAVINGS" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="PERSON">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SAVINGS">
+              <PropertyRef Name="PERSONID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PersonalFinanceModelStoreContainer">
+          <EntitySet Name="INCOMETAX" EntityType="Self.INCOMETAX" Schema="PERSONALFINANCE" store:Type="Tables" />
+          <EntitySet Name="INCOMETAXBRACKET" EntityType="Self.INCOMETAXBRACKET" Schema="PERSONALFINANCE" store:Type="Tables" />
+          <EntitySet Name="LOAN" EntityType="Self.LOAN" Schema="PERSONALFINANCE" store:Type="Tables" />
+          <EntitySet Name="PERSON" EntityType="Self.PERSON" Schema="PERSONALFINANCE" store:Type="Tables" />
+          <EntitySet Name="SAVINGS" EntityType="Self.SAVINGS" Schema="PERSONALFINANCE" store:Type="Tables" />
+          <EntitySet Name="STATE" EntityType="Self.STATE" Schema="PERSONALFINANCE" store:Type="Tables" />
+          <EntitySet Name="TAX" EntityType="Self.TAX" Schema="PERSONALFINANCE" store:Type="Tables" />
+          <EntitySet Name="TAXYEAR" EntityType="Self.TAXYEAR" Schema="PERSONALFINANCE" store:Type="Tables" />
+          <EntitySet Name="WAGE" EntityType="Self.WAGE" Schema="PERSONALFINANCE" store:Type="Tables" />
+          <EntitySet Name="YEAR" EntityType="Self.YEAR" Schema="PERSONALFINANCE" store:Type="Tables" />
+          <AssociationSet Name="SYS_C008303" Association="Self.SYS_C008303">
+            <End Role="STATE" EntitySet="STATE" />
+            <End Role="INCOMETAX" EntitySet="INCOMETAX" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C008304" Association="Self.SYS_C008304">
+            <End Role="TAXYEAR" EntitySet="TAXYEAR" />
+            <End Role="INCOMETAX" EntitySet="INCOMETAX" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C008308" Association="Self.SYS_C008308">
+            <End Role="INCOMETAX" EntitySet="INCOMETAX" />
+            <End Role="INCOMETAXBRACKET" EntitySet="INCOMETAXBRACKET" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C008313" Association="Self.SYS_C008313">
+            <End Role="STATE" EntitySet="STATE" />
+            <End Role="PERSON" EntitySet="PERSON" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C008318" Association="Self.SYS_C008318">
+            <End Role="PERSON" EntitySet="PERSON" />
+            <End Role="TAX" EntitySet="TAX" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C008319" Association="Self.SYS_C008319">
+            <End Role="TAXYEAR" EntitySet="TAXYEAR" />
+            <End Role="TAX" EntitySet="TAX" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C008321" Association="Self.SYS_C008321">
+            <End Role="PERSON" EntitySet="PERSON" />
+            <End Role="WAGE" EntitySet="WAGE" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C008325" Association="Self.SYS_C008325">
+            <End Role="PERSON" EntitySet="PERSON" />
+            <End Role="LOAN" EntitySet="LOAN" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C008327" Association="Self.SYS_C008327">
+            <End Role="PERSON" EntitySet="PERSON" />
+            <End Role="SAVINGS" EntitySet="SAVINGS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PersonalFinanceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="INCOMETAX">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="TYPE" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FILINGTYPE" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FLAT" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="STATE" Relationship="Self.SYS_C008303" FromRole="INCOMETAX" ToRole="STATE" />
+          <NavigationProperty Name="TAXYEAR" Relationship="Self.SYS_C008304" FromRole="INCOMETAX" ToRole="TAXYEAR" />
+          <NavigationProperty Name="INCOMETAXBRACKET" Relationship="Self.SYS_C008308" FromRole="INCOMETAX" ToRole="INCOMETAXBRACKET" />
+        </EntityType>
+        <EntityType Name="INCOMETAXBRACKET">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="BRACKETLEVEL" />
+          </Key>
+          <Property Name="ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="BRACKETLEVEL" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="RATE" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="BMIN" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="BMAX" Type="Decimal" Precision="38" Scale="0" />
+          <NavigationProperty Name="INCOMETAX" Relationship="Self.SYS_C008308" FromRole="INCOMETAXBRACKET" ToRole="INCOMETAX" />
+        </EntityType>
+        <EntityType Name="LOAN">
+          <Key>
+            <PropertyRef Name="PERSONID" />
+          </Key>
+          <Property Name="PERSONID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="TYPE" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="SUBSIDIZED" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="MONTHLYRATE" Type="Decimal" Precision="38" Scale="0" />
+          <NavigationProperty Name="PERSON" Relationship="Self.SYS_C008325" FromRole="LOAN" ToRole="PERSON" />
+        </EntityType>
+        <EntityType Name="PERSON">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="FIRSTNAME" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="LASTNAME" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="CITY" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="FILINGTYPE" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="LOAN" Relationship="Self.SYS_C008325" FromRole="PERSON" ToRole="LOAN" />
+          <NavigationProperty Name="STATE" Relationship="Self.SYS_C008313" FromRole="PERSON" ToRole="STATE" />
+          <NavigationProperty Name="TAX" Relationship="Self.SYS_C008318" FromRole="PERSON" ToRole="TAX" />
+          <NavigationProperty Name="WAGE" Relationship="Self.SYS_C008321" FromRole="PERSON" ToRole="WAGE" />
+          <NavigationProperty Name="SAVINGS" Relationship="Self.SYS_C008327" FromRole="PERSON" ToRole="SAVINGS" />
+        </EntityType>
+        <EntityType Name="SAVINGS">
+          <Key>
+            <PropertyRef Name="PERSONID" />
+          </Key>
+          <Property Name="PERSONID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="MONTHLYRATE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="CAP" Type="Decimal" Precision="38" Scale="0" />
+          <NavigationProperty Name="PERSON" Relationship="Self.SYS_C008327" FromRole="SAVINGS" ToRole="PERSON" />
+        </EntityType>
+        <EntityType Name="STATE">
+          <Key>
+            <PropertyRef Name="STATE1" />
+          </Key>
+          <Property Name="STATE1" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="INCOMETAX" Relationship="Self.SYS_C008303" FromRole="STATE" ToRole="INCOMETAX" />
+          <NavigationProperty Name="PERSON" Relationship="Self.SYS_C008313" FromRole="STATE" ToRole="PERSON" />
+        </EntityType>
+        <EntityType Name="TAX">
+          <Key>
+            <PropertyRef Name="PERSONID" />
+          </Key>
+          <Property Name="PERSONID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="WHO" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="WHY" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="RATE" Type="Decimal" Precision="38" Scale="0" />
+          <NavigationProperty Name="PERSON" Relationship="Self.SYS_C008318" FromRole="TAX" ToRole="PERSON" />
+          <NavigationProperty Name="TAXYEAR" Relationship="Self.SYS_C008319" FromRole="TAX" ToRole="TAXYEAR" />
+        </EntityType>
+        <EntityType Name="TAXYEAR">
+          <Key>
+            <PropertyRef Name="YEAR" />
+          </Key>
+          <Property Name="YEAR" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="INCOMETAX" Relationship="Self.SYS_C008304" FromRole="TAXYEAR" ToRole="INCOMETAX" />
+          <NavigationProperty Name="TAX" Relationship="Self.SYS_C008319" FromRole="TAXYEAR" ToRole="TAX" />
+        </EntityType>
+        <EntityType Name="WAGE">
+          <Key>
+            <PropertyRef Name="PERSONID" />
+          </Key>
+          <Property Name="PERSONID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="HOURLYWAGE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="YEARLYWAGE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="BONUS" Type="Decimal" Precision="38" Scale="0" />
+          <NavigationProperty Name="PERSON" Relationship="Self.SYS_C008321" FromRole="WAGE" ToRole="PERSON" />
+        </EntityType>
+        <EntityType Name="YEAR">
+          <Key>
+            <PropertyRef Name="YEAR1" />
+          </Key>
+          <Property Name="YEAR1" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <Association Name="SYS_C008303">
+          <End Role="STATE" Type="Self.STATE" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="INCOMETAX" Type="Self.INCOMETAX" Multiplicity="*" />
+        </Association>
+        <Association Name="SYS_C008304">
+          <End Role="TAXYEAR" Type="Self.TAXYEAR" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="INCOMETAX" Type="Self.INCOMETAX" Multiplicity="*" />
+        </Association>
+        <Association Name="SYS_C008308">
+          <End Role="INCOMETAX" Type="Self.INCOMETAX" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="INCOMETAXBRACKET" Type="Self.INCOMETAXBRACKET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="INCOMETAX">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="INCOMETAXBRACKET">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C008325">
+          <End Role="PERSON" Type="Self.PERSON" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="LOAN" Type="Self.LOAN" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="PERSON">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LOAN">
+              <PropertyRef Name="PERSONID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C008313">
+          <End Role="STATE" Type="Self.STATE" Multiplicity="1" />
+          <End Role="PERSON" Type="Self.PERSON" Multiplicity="*" />
+        </Association>
+        <Association Name="SYS_C008318">
+          <End Role="PERSON" Type="Self.PERSON" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TAX" Type="Self.TAX" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="PERSON">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TAX">
+              <PropertyRef Name="PERSONID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C008321">
+          <End Role="PERSON" Type="Self.PERSON" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="WAGE" Type="Self.WAGE" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="PERSON">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="WAGE">
+              <PropertyRef Name="PERSONID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C008327">
+          <End Role="PERSON" Type="Self.PERSON" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SAVINGS" Type="Self.SAVINGS" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="PERSON">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SAVINGS">
+              <PropertyRef Name="PERSONID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C008319">
+          <End Role="TAXYEAR" Type="Self.TAXYEAR" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TAX" Type="Self.TAX" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="PFContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="INCOMETAX" EntityType="Self.INCOMETAX" />
+          <EntitySet Name="INCOMETAXBRACKET" EntityType="Self.INCOMETAXBRACKET" />
+          <EntitySet Name="LOAN" EntityType="Self.LOAN" />
+          <EntitySet Name="PERSON" EntityType="Self.PERSON" />
+          <EntitySet Name="SAVINGS" EntityType="Self.SAVINGS" />
+          <EntitySet Name="STATE" EntityType="Self.STATE" />
+          <EntitySet Name="TAX" EntityType="Self.TAX" />
+          <EntitySet Name="TAXYEAR" EntityType="Self.TAXYEAR" />
+          <EntitySet Name="WAGE" EntityType="Self.WAGE" />
+          <EntitySet Name="YEAR" EntityType="Self.YEAR" />
+          <AssociationSet Name="SYS_C008303" Association="Self.SYS_C008303">
+            <End Role="STATE" EntitySet="STATE" />
+            <End Role="INCOMETAX" EntitySet="INCOMETAX" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C008304" Association="Self.SYS_C008304">
+            <End Role="TAXYEAR" EntitySet="TAXYEAR" />
+            <End Role="INCOMETAX" EntitySet="INCOMETAX" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C008308" Association="Self.SYS_C008308">
+            <End Role="INCOMETAX" EntitySet="INCOMETAX" />
+            <End Role="INCOMETAXBRACKET" EntitySet="INCOMETAXBRACKET" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C008325" Association="Self.SYS_C008325">
+            <End Role="PERSON" EntitySet="PERSON" />
+            <End Role="LOAN" EntitySet="LOAN" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C008313" Association="Self.SYS_C008313">
+            <End Role="STATE" EntitySet="STATE" />
+            <End Role="PERSON" EntitySet="PERSON" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C008318" Association="Self.SYS_C008318">
+            <End Role="PERSON" EntitySet="PERSON" />
+            <End Role="TAX" EntitySet="TAX" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C008321" Association="Self.SYS_C008321">
+            <End Role="PERSON" EntitySet="PERSON" />
+            <End Role="WAGE" EntitySet="WAGE" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C008327" Association="Self.SYS_C008327">
+            <End Role="PERSON" EntitySet="PERSON" />
+            <End Role="SAVINGS" EntitySet="SAVINGS" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C008319" Association="Self.SYS_C008319">
+            <End Role="TAXYEAR" EntitySet="TAXYEAR" />
+            <End Role="TAX" EntitySet="TAX" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PersonalFinanceModelStoreContainer" CdmEntityContainer="PFContext">
+          <EntitySetMapping Name="INCOMETAX">
+            <EntityTypeMapping TypeName="PersonalFinanceModel.INCOMETAX">
+              <MappingFragment StoreEntitySet="INCOMETAX">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TYPE" ColumnName="TYPE" />
+                <ScalarProperty Name="FILINGTYPE" ColumnName="FILINGTYPE" />
+                <ScalarProperty Name="FLAT" ColumnName="FLAT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="INCOMETAXBRACKET">
+            <EntityTypeMapping TypeName="PersonalFinanceModel.INCOMETAXBRACKET">
+              <MappingFragment StoreEntitySet="INCOMETAXBRACKET">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="BRACKETLEVEL" ColumnName="BRACKETLEVEL" />
+                <ScalarProperty Name="RATE" ColumnName="RATE" />
+                <ScalarProperty Name="BMIN" ColumnName="BMIN" />
+                <ScalarProperty Name="BMAX" ColumnName="BMAX" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LOAN">
+            <EntityTypeMapping TypeName="PersonalFinanceModel.LOAN">
+              <MappingFragment StoreEntitySet="LOAN">
+                <ScalarProperty Name="PERSONID" ColumnName="PERSONID" />
+                <ScalarProperty Name="TYPE" ColumnName="TYPE" />
+                <ScalarProperty Name="SUBSIDIZED" ColumnName="SUBSIDIZED" />
+                <ScalarProperty Name="MONTHLYRATE" ColumnName="MONTHLYRATE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PERSON">
+            <EntityTypeMapping TypeName="PersonalFinanceModel.PERSON">
+              <MappingFragment StoreEntitySet="PERSON">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FIRSTNAME" ColumnName="FIRSTNAME" />
+                <ScalarProperty Name="LASTNAME" ColumnName="LASTNAME" />
+                <ScalarProperty Name="CITY" ColumnName="CITY" />
+                <ScalarProperty Name="FILINGTYPE" ColumnName="FILINGTYPE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SAVINGS">
+            <EntityTypeMapping TypeName="PersonalFinanceModel.SAVINGS">
+              <MappingFragment StoreEntitySet="SAVINGS">
+                <ScalarProperty Name="PERSONID" ColumnName="PERSONID" />
+                <ScalarProperty Name="MONTHLYRATE" ColumnName="MONTHLYRATE" />
+                <ScalarProperty Name="CAP" ColumnName="CAP" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STATE">
+            <EntityTypeMapping TypeName="PersonalFinanceModel.STATE">
+              <MappingFragment StoreEntitySet="STATE">
+                <ScalarProperty Name="STATE1" ColumnName="STATE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TAX">
+            <EntityTypeMapping TypeName="PersonalFinanceModel.TAX">
+              <MappingFragment StoreEntitySet="TAX">
+                <ScalarProperty Name="PERSONID" ColumnName="PERSONID" />
+                <ScalarProperty Name="WHO" ColumnName="WHO" />
+                <ScalarProperty Name="WHY" ColumnName="WHY" />
+                <ScalarProperty Name="RATE" ColumnName="RATE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TAXYEAR">
+            <EntityTypeMapping TypeName="PersonalFinanceModel.TAXYEAR">
+              <MappingFragment StoreEntitySet="TAXYEAR">
+                <ScalarProperty Name="YEAR" ColumnName="YEAR" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WAGE">
+            <EntityTypeMapping TypeName="PersonalFinanceModel.WAGE">
+              <MappingFragment StoreEntitySet="WAGE">
+                <ScalarProperty Name="PERSONID" ColumnName="PERSONID" />
+                <ScalarProperty Name="HOURLYWAGE" ColumnName="HOURLYWAGE" />
+                <ScalarProperty Name="YEARLYWAGE" ColumnName="YEARLYWAGE" />
+                <ScalarProperty Name="BONUS" ColumnName="BONUS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="YEAR">
+            <EntityTypeMapping TypeName="PersonalFinanceModel.YEAR">
+              <MappingFragment StoreEntitySet="YEAR">
+                <ScalarProperty Name="YEAR1" ColumnName="YEAR" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="SYS_C008303" TypeName="PersonalFinanceModel.SYS_C008303" StoreEntitySet="INCOMETAX">
+            <EndProperty Name="STATE">
+              <ScalarProperty Name="STATE1" ColumnName="STATE" />
+            </EndProperty>
+            <EndProperty Name="INCOMETAX">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="SYS_C008304" TypeName="PersonalFinanceModel.SYS_C008304" StoreEntitySet="INCOMETAX">
+            <EndProperty Name="TAXYEAR">
+              <ScalarProperty Name="YEAR" ColumnName="YEAR" />
+            </EndProperty>
+            <EndProperty Name="INCOMETAX">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="SYS_C008313" TypeName="PersonalFinanceModel.SYS_C008313" StoreEntitySet="PERSON">
+            <EndProperty Name="STATE">
+              <ScalarProperty Name="STATE1" ColumnName="STATE" />
+            </EndProperty>
+            <EndProperty Name="PERSON">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="SYS_C008319" TypeName="PersonalFinanceModel.SYS_C008319" StoreEntitySet="TAX">
+            <EndProperty Name="TAXYEAR">
+              <ScalarProperty Name="YEAR" ColumnName="TAXYEAR" />
+            </EndProperty>
+            <EndProperty Name="TAX">
+              <ScalarProperty Name="PERSONID" ColumnName="PERSONID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="false" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

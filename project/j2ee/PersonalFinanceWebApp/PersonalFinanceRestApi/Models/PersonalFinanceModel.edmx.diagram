@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="cfa7996469724c72a7fd71da999ac9fc" Name="Diagram1" ZoomLevel="86">
+        <EntityTypeShape EntityType="PersonalFinanceModel.INCOMETAX" Width="1.5" PointX="0.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="PersonalFinanceModel.INCOMETAXBRACKET" Width="1.5" PointX="2.75" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PersonalFinanceModel.LOAN" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PersonalFinanceModel.PERSON" Width="1.5" PointX="3" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PersonalFinanceModel.SAVINGS" Width="1.5" PointX="5.25" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PersonalFinanceModel.STATE" Width="1.5" PointX="0.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PersonalFinanceModel.TAX" Width="1.5" PointX="5.25" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PersonalFinanceModel.TAXYEAR" Width="1.5" PointX="5.125" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PersonalFinanceModel.WAGE" Width="1.5" PointX="7.625" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PersonalFinanceModel.YEAR" Width="1.5" PointX="7.625" PointY="6.875" IsExpanded="true" />
+        <AssociationConnector Association="PersonalFinanceModel.SYS_C008303" ManuallyRouted="false" />
+        <AssociationConnector Association="PersonalFinanceModel.SYS_C008304" ManuallyRouted="false" />
+        <AssociationConnector Association="PersonalFinanceModel.SYS_C008308" ManuallyRouted="false" />
+        <AssociationConnector Association="PersonalFinanceModel.SYS_C008325" ManuallyRouted="false" />
+        <AssociationConnector Association="PersonalFinanceModel.SYS_C008313" ManuallyRouted="false" />
+        <AssociationConnector Association="PersonalFinanceModel.SYS_C008318" ManuallyRouted="false" />
+        <AssociationConnector Association="PersonalFinanceModel.SYS_C008321" ManuallyRouted="false" />
+        <AssociationConnector Association="PersonalFinanceModel.SYS_C008327" ManuallyRouted="false" />
+        <AssociationConnector Association="PersonalFinanceModel.SYS_C008319" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
