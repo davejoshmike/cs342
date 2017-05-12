@@ -9,3 +9,15 @@ Exercise 11.1:
 Exercise 11.2:
 	The application uses JAX-RS to create the REST endpoints and JAXB to serialize/deserialize classes
 	
+Exercise 11.3:
+	Curl Commands:
+		Get:
+			curl -H "Content-Type: text/plain" -X GET http://localhost:8080/Lab11_war/hello/api/
+			curl -H "Content-Type: text/plain" -X GET http://localhost:8080/Lab11_war/hello/api/1
+		PUT:
+			curl -H "Content-Type: text/plain" -X PUT http://localhost:8080/Lab11_war/hello/api/1
+		POST:
+			curl -H "Content-Type: text/plain" -X POST http://localhost:8080/Lab11_war/hello/api/
+			curl -H "Content-Type: text/plain" -X POST http://localhost:8080/Lab11_war/hello/api/ -d 1
+		DELETE:
+			curl -H "Content-Type: text/plain" -X DELETE http://localhost:8080/Lab11_war/hello/api/1

@@ -1,0 +1,15 @@
+Lab 13:
+	Exercise 13.1:
+		a. em.persist() creates a new entry, but does not update a new entry, while the store.put() can both update and create entries. Also, the em performs the operation on the object stored in the entity manager, not on the database itself.
+		
+		b. the store.put() operates on directly to the database compared to myHashTable.put() which just makes edits on the object itself
+		
+	Exercise 13.2:
+		a. Both relational and kvlite keys both are unique keys of which to access a record from. 
+		
+	Exercise 13.3:
+		a. The one table would have a key-value that has a foreign key of a record in the many table. You would access the one table and then use that foreign key to access the many table.
+		
+		b. The empty value may be used as a get all store of construct. 
+		
+		
