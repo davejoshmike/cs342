@@ -2,7 +2,6 @@ import oracle.kv.*;
 
 import java.util.Arrays;
 import java.util.Map;
-import java.util.Vector;
 
 /**
  * Created by djm43 on 5/5/2017.
