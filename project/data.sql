@@ -153,10 +153,10 @@ INSERT INTO Wage (personId,hourlywage,yearlywage,bonus) VALUES (31,NULL,NULL,NUL
     -- CREATE UNIQUE INDEX Person_Index ON Person(id);
 
 -- Display
- Select * FROM Person WHERE ROWNUM <= 10;
- Select * FROM Tax WHERE ROWNUM <= 10;
- Select * FROM Loan WHERE ROWNUM <= 10;
- Select * FROM Wage WHERE ROWNUM <= 10;
- Select * FROM Savings WHERE ROWNUM <= 10;
- Select * FROM IncomeTax WHERE ROWNUM <= 10;
- Select * FROM IncomeTaxBracket WHERE ROWNUM <= 10;
+-- Select * FROM Person WHERE ROWNUM <= 10;
+-- Select * FROM Tax WHERE ROWNUM <= 10;
+-- Select * FROM Loan WHERE ROWNUM <= 10;
+-- Select * FROM Wage WHERE ROWNUM <= 10;
+-- Select * FROM Savings WHERE ROWNUM <= 10;
+-- Select * FROM IncomeTax WHERE ROWNUM <= 10;
+-- Select * FROM IncomeTaxBracket WHERE ROWNUM <= 10;
