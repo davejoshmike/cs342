@@ -1,0 +1,667 @@
+
+
+Person: 
+	personid: 4
+	bonus: 0.0
+	city: New Westminster
+	filingtype: joint
+	firstname: Nathaniel
+	hourlywage: 42.0
+	lastname: Burris
+	state: Indiana
+	yearlywage: 70966.0
+
+Person: 
+	personid: 8
+	bonus: 0.0
+	city: Bahawalpur
+	filingtype: single
+	firstname: Raven
+	hourlywage: 62.0
+	lastname: Garza
+	state: Indiana
+	yearlywage: 36959.0
+
+Person: 
+	personid: 13
+	bonus: 0.0
+	city: March
+	filingtype: single
+	firstname: Tarik
+	hourlywage: 48.0
+	lastname: Hines
+	state: Michigan
+	yearlywage: 98817.0
+
+Person: 
+	personid: 22
+	bonus: 0.0
+	city: Bochum
+	filingtype: joint
+	firstname: Illiana
+	hourlywage: 108.0
+	lastname: Anthony
+	state: Kentucky
+	yearlywage: 79927.0
+
+Person: 
+	personid: 23
+	bonus: 0.0
+	city: Sachs Harbour
+	filingtype: single
+	firstname: Dominic
+	hourlywage: 100.0
+	lastname: Oneil
+	state: New York
+	yearlywage: 74461.0
+
+Person: 
+	personid: 24
+	bonus: 0.0
+	city: Gatineau
+	filingtype: joint
+	firstname: Tamekah
+	hourlywage: 21.0
+	lastname: Cline
+	state: Michigan
+	yearlywage: 34948.0
+
+Person: 
+	personid: 26
+	bonus: 0.0
+	city: Montrose
+	filingtype: single
+	firstname: Macon
+	hourlywage: 83.0
+	lastname: Lindsey
+	state: Kentucky
+	yearlywage: 92603.0
+
+Person: 
+	personid: 31
+	bonus: 0.0
+	city: null
+	filingtype: single
+	firstname: null
+	hourlywage: 0.0
+	lastname: null
+	state: Michigan
+	yearlywage: 0.0
+
+Person: 
+	personid: 5
+	bonus: 0.0
+	city: Tregaron
+	filingtype: single
+	firstname: Kim
+	hourlywage: 69.0
+	lastname: Colon
+	state: Kentucky
+	yearlywage: 73509.0
+
+Person: 
+	personid: 12
+	bonus: 0.0
+	city: Scarborough
+	filingtype: single
+	firstname: Lysandra
+	hourlywage: 11.0
+	lastname: Wise
+	state: Kentucky
+	yearlywage: 10764.0
+
+Person: 
+	personid: 14
+	bonus: 0.0
+	city: Wiener Neustadt
+	filingtype: single
+	firstname: Nevada
+	hourlywage: 105.0
+	lastname: Duran
+	state: Michigan
+	yearlywage: 85190.0
+
+Person: 
+	personid: 2
+	bonus: 0.0
+	city: Hoogstraten
+	filingtype: single
+	firstname: Alec
+	hourlywage: 59.0
+	lastname: Ferrell
+	state: Kentucky
+	yearlywage: 48344.0
+
+Person: 
+	personid: 28
+	bonus: 0.0
+	city: Bilbo
+	filingtype: joint
+	firstname: Jelani
+	hourlywage: 35.0
+	lastname: Odonnell
+	state: New York
+	yearlywage: 58828.0
+
+Person: 
+	personid: 10
+	bonus: 0.0
+	city: Pastena
+	filingtype: single
+	firstname: Clark
+	hourlywage: 109.0
+	lastname: Blanchard
+	state: New York
+	yearlywage: 15502.0
+
+Person: 
+	personid: 0
+	bonus: 0.0
+	city: Grand Rapids
+	filingtype: single
+	firstname: David
+	hourlywage: 20.0
+	lastname: Michel
+	state: Michigan
+	yearlywage: 30532.0
+
+Person: 
+	personid: 11
+	bonus: 0.0
+	city: Gretna
+	filingtype: single
+	firstname: Cadman
+	hourlywage: 127.0
+	lastname: Fernandez
+	state: Michigan
+	yearlywage: 92783.0
+
+Person: 
+	personid: 25
+	bonus: 0.0
+	city: Ourense
+	filingtype: joint
+	firstname: Unity
+	hourlywage: 33.0
+	lastname: Mercado
+	state: New York
+	yearlywage: 34941.0
+
+Person: 
+	personid: 9
+	bonus: 0.0
+	city: Tucapel
+	filingtype: joint
+	firstname: Jarrod
+	hourlywage: 24.0
+	lastname: Haynes
+	state: Indiana
+	yearlywage: 72384.0
+
+Person: 
+	personid: 20
+	bonus: 0.0
+	city: Villers-sur-Semois
+	filingtype: joint
+	firstname: Andrew
+	hourlywage: 10.0
+	lastname: Patterson
+	state: New York
+	yearlywage: 25201.0
+
+Person: 
+	personid: 21
+	bonus: 0.0
+	city: Poitiers
+	filingtype: single
+	firstname: May
+	hourlywage: 128.0
+	lastname: Vasquez
+	state: Kentucky
+	yearlywage: 91458.0
+
+Person: 
+	personid: 15
+	bonus: 0.0
+	city: Molina
+	filingtype: single
+	firstname: Yoshi
+	hourlywage: 4.0
+	lastname: Montoya
+	state: Kentucky
+	yearlywage: 76377.0
+
+Person: 
+	personid: 19
+	bonus: 0.0
+	city: SÃ¶derhamn
+	filingtype: single
+	firstname: Gail
+	hourlywage: 11.0
+	lastname: Frederick
+	state: Michigan
+	yearlywage: 20454.0
+
+Person: 
+	personid: 27
+	bonus: 0.0
+	city: Joondalup
+	filingtype: joint
+	firstname: Imani
+	hourlywage: 144.0
+	lastname: Gentry
+	state: Illinois
+	yearlywage: 92778.0
+
+Person: 
+	personid: 7
+	bonus: 0.0
+	city: MÃ¶dling
+	filingtype: joint
+	firstname: Armando
+	hourlywage: 66.0
+	lastname: Atkinson
+	state: Michigan
+	yearlywage: 56679.0
+
+Person: 
+	personid: 29
+	bonus: 0.0
+	city: Dubuisson
+	filingtype: single
+	firstname: Avye
+	hourlywage: 77.0
+	lastname: Herring
+	state: Illinois
+	yearlywage: 66521.0
+
+Person: 
+	personid: 3
+	bonus: 0.0
+	city: Donstiennes
+	filingtype: joint
+	firstname: Kyle
+	hourlywage: 82.0
+	lastname: Hayden
+	state: New York
+	yearlywage: 97643.0
+
+Person: 
+	personid: 30
+	bonus: 0.0
+	city: Westkerke
+	filingtype: joint
+	firstname: Moses
+	hourlywage: 54.0
+	lastname: Owen
+	state: New York
+	yearlywage: 51718.0
+
+Person: 
+	personid: 6
+	bonus: 0.0
+	city: Hamilton
+	filingtype: joint
+	firstname: Francesca
+	hourlywage: 45.0
+	lastname: Carpenter
+	state: New York
+	yearlywage: 41713.0
+
+Person: 
+	personid: 1
+	bonus: 0.0
+	city: Hofheim am Taunus
+	filingtype: joint
+	firstname: Darius
+	hourlywage: 10.0
+	lastname: Martin
+	state: Kentucky
+	yearlywage: 53018.0
+
+Person: 
+	personid: 16
+	bonus: 0.0
+	city: Cannalonga
+	filingtype: single
+	firstname: Cheyenne
+	hourlywage: 15.0
+	lastname: Brady
+	state: Michigan
+	yearlywage: 1985.0
+
+Person: 
+	personid: 17
+	bonus: 0.0
+	city: Vancouver
+	filingtype: single
+	firstname: Signe
+	hourlywage: 5.0
+	lastname: Larsen
+	state: Michigan
+	yearlywage: 15057.0
+
+Person: 
+	personid: 18
+	bonus: 0.0
+	city: IJlst
+	filingtype: joint
+	firstname: Allistair
+	hourlywage: 16.0
+	lastname: William
+	state: Michigan
+	yearlywage: 27900.0
+
+
+IncomeTax: 
+	id: 4
+	bmax: 5000000000
+	bmin: 0
+	bracketlevel: 1
+	filingtype: single
+	flat: Y
+	rate: .033
+	state: Indiana
+	type: state
+	year: 2016
+
+IncomeTax: 
+	id: 6
+	bmax: 5000000000
+	bmin: 75000
+	bracketlevel: 6
+	filingtype: single
+	flat: N
+	rate: .06
+	state: Kentucky
+	type: state
+	year: 2016
+
+IncomeTax: 
+	id: 7
+	bmax: 74999.99
+	bmin: 8000
+	bracketlevel: 5
+	filingtype: joint
+	flat: N
+	rate: .058
+	state: Kentucky
+	type: state
+	year: 2016
+
+IncomeTax: 
+	id: 0
+	bmax: 5000000000
+	bmin: 0
+	bracketlevel: 1
+	filingtype: single
+	flat: Y
+	rate: .0425
+	state: Michigan
+	type: state
+	year: 2016
+
+IncomeTax: 
+	id: 5
+	bmax: 5000000000
+	bmin: 0
+	bracketlevel: 1
+	filingtype: joint
+	flat: Y
+	rate: .033
+	state: Indiana
+	type: state
+	year: 2016
+
+IncomeTax: 
+	id: 3
+	bmax: 5000000000
+	bmin: 0
+	bracketlevel: 1
+	filingtype: joint
+	flat: Y
+	rate: .0375
+	state: Illinois
+	type: state
+	year: 2016
+
+IncomeTax: 
+	id: 8
+	bmax: 11649.99
+	bmin: 8450
+	bracketlevel: 2
+	filingtype: single
+	flat: N
+	rate: .045
+	state: New York
+	type: state
+	year: 2016
+
+IncomeTax: 
+	id: 2
+	bmax: 5000000000
+	bmin: 0
+	bracketlevel: 1
+	filingtype: single
+	flat: Y
+	rate: .0375
+	state: Illinois
+	type: state
+	year: 2016
+
+IncomeTax: 
+	id: 9
+	bmax: 42749.99
+	bmin: 27750
+	bracketlevel: 4
+	filingtype: joint
+	flat: N
+	rate: .059
+	state: New York
+	type: state
+	year: 2016
+
+IncomeTax: 
+	id: 1
+	bmax: 5000000000
+	bmin: 0
+	bracketlevel: 1
+	filingtype: joint
+	flat: Y
+	rate: .0425
+	state: Michigan
+	type: state
+	year: 2016
+
+
+Wage: 
+	personid: 18
+	bonus: 0.0
+	hourlywage: 16.0
+	yearlywage: 27900.0
+
+Wage: 
+	personid: 21
+	bonus: 0.0
+	hourlywage: 128.0
+	yearlywage: 91458.0
+
+Wage: 
+	personid: 29
+	bonus: 0.0
+	hourlywage: 77.0
+	yearlywage: 66521.0
+
+Wage: 
+	personid: 31
+	bonus: 0.0
+	hourlywage: 0.0
+	yearlywage: 0.0
+
+Wage: 
+	personid: 1
+	bonus: 0.0
+	hourlywage: 10.0
+	yearlywage: 53018.0
+
+Wage: 
+	personid: 17
+	bonus: 0.0
+	hourlywage: 5.0
+	yearlywage: 15057.0
+
+Wage: 
+	personid: 20
+	bonus: 0.0
+	hourlywage: 10.0
+	yearlywage: 25201.0
+
+Wage: 
+	personid: 23
+	bonus: 0.0
+	hourlywage: 100.0
+	yearlywage: 74461.0
+
+Wage: 
+	personid: 11
+	bonus: 0.0
+	hourlywage: 127.0
+	yearlywage: 92783.0
+
+Wage: 
+	personid: 25
+	bonus: 0.0
+	hourlywage: 33.0
+	yearlywage: 34941.0
+
+Wage: 
+	personid: 27
+	bonus: 0.0
+	hourlywage: 144.0
+	yearlywage: 92778.0
+
+Wage: 
+	personid: 13
+	bonus: 0.0
+	hourlywage: 48.0
+	yearlywage: 98817.0
+
+Wage: 
+	personid: 26
+	bonus: 0.0
+	hourlywage: 83.0
+	yearlywage: 92603.0
+
+Wage: 
+	personid: 30
+	bonus: 0.0
+	hourlywage: 54.0
+	yearlywage: 51718.0
+
+Wage: 
+	personid: 0
+	bonus: 0.0
+	hourlywage: 20.0
+	yearlywage: 30532.0
+
+Wage: 
+	personid: 19
+	bonus: 0.0
+	hourlywage: 11.0
+	yearlywage: 20454.0
+
+Wage: 
+	personid: 2
+	bonus: 0.0
+	hourlywage: 59.0
+	yearlywage: 48344.0
+
+Wage: 
+	personid: 5
+	bonus: 0.0
+	hourlywage: 69.0
+	yearlywage: 73509.0
+
+Wage: 
+	personid: 6
+	bonus: 0.0
+	hourlywage: 45.0
+	yearlywage: 41713.0
+
+Wage: 
+	personid: 7
+	bonus: 0.0
+	hourlywage: 66.0
+	yearlywage: 56679.0
+
+Wage: 
+	personid: 12
+	bonus: 0.0
+	hourlywage: 11.0
+	yearlywage: 10764.0
+
+Wage: 
+	personid: 8
+	bonus: 0.0
+	hourlywage: 62.0
+	yearlywage: 36959.0
+
+Wage: 
+	personid: 24
+	bonus: 0.0
+	hourlywage: 21.0
+	yearlywage: 34948.0
+
+Wage: 
+	personid: 4
+	bonus: 0.0
+	hourlywage: 42.0
+	yearlywage: 70966.0
+
+Wage: 
+	personid: 9
+	bonus: 0.0
+	hourlywage: 24.0
+	yearlywage: 72384.0
+
+Wage: 
+	personid: 14
+	bonus: 0.0
+	hourlywage: 105.0
+	yearlywage: 85190.0
+
+Wage: 
+	personid: 16
+	bonus: 0.0
+	hourlywage: 15.0
+	yearlywage: 1985.0
+
+Wage: 
+	personid: 22
+	bonus: 0.0
+	hourlywage: 108.0
+	yearlywage: 79927.0
+
+Wage: 
+	personid: 10
+	bonus: 0.0
+	hourlywage: 109.0
+	yearlywage: 15502.0
+
+Wage: 
+	personid: 15
+	bonus: 0.0
+	hourlywage: 4.0
+	yearlywage: 76377.0
+
+Wage: 
+	personid: 28
+	bonus: 0.0
+	hourlywage: 35.0
+	yearlywage: 58828.0
+
+Wage: 
+	personid: 3
+	bonus: 0.0
+	hourlywage: 82.0
+	yearlywage: 97643.0

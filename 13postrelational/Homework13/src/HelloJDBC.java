@@ -26,15 +26,20 @@ public class HelloJDBC {
 				"kvstore", "localhost:5000"));
 
 		LoadDB(jdbcConnection, store);
-//		Hashtable<String, String> movieTableValues = GetTableValues(store);
-//		System.out.println(movieTableValues);
 
-//		String roleValues = GetMovieActorRoles(store);
-//		System.out.println(roleValues);
+		System.out.println("movieTableValues: ");
+		Hashtable<String, String> movieTableValues = GetTableValues(store);
+		System.out.println(movieTableValues);
 
+		System.out.println("\nGetMovieActorRoles: ");
+		String roleValues = GetMovieActorRoles(store);
+		System.out.println(roleValues);
+
+		System.out.println("\nGetMovieActors: ");
 		String movieActorValues = GetMovieActors(store);
 		System.out.println(movieActorValues);
 
+		System.out.println("\nGetSortedMovie: ");
 		String sortedMovies = GetSortedMovies(store);
 		System.out.println(sortedMovies);
 
@@ -48,20 +53,15 @@ public class HelloJDBC {
 
 		//region LoadMovieTable - movie/movieid/-/...
 		String table = "movie";
-		ResultSet resultSet = jdbcStatement.executeQuery("SELECT id, name, year FROM " + table);
+		ResultSet resultSet = jdbcStatement.executeQuery("SELECT id, name, year FROM " + table + " ORDER BY year DESC");
 
-		//region Fields
-		String movieId;
-		String name;
-		String year;
-		//endregion
 		Key movieKey;
 		Value movieValue;
 		while (resultSet.next()) {
 			//region Store fields from Oracle into variables
-			movieId = String.valueOf(resultSet.getInt(1));
-			name = String.valueOf(resultSet.getString(2));
-			year = String.valueOf(resultSet.getString(3));
+			String movieId = String.valueOf(resultSet.getInt(1));
+			String name = String.valueOf(resultSet.getString(2));
+			String year = String.valueOf(resultSet.getString(3));
 			//endregion
 
 			//region Put name to KVlite
@@ -163,6 +163,7 @@ public class HelloJDBC {
 			//region Put role to KVlite
 			roleKey = Key.createKey(Arrays.asList(table, movieid, actorId), Arrays.asList("role"));
 			roleValue = Value.createValue(role.getBytes());
+
 			store.put(roleKey, roleValue);
 			//endregion
 
@@ -198,7 +199,6 @@ public class HelloJDBC {
 			returnValue += "\t" + fieldName + "\t: " + fieldValue + "\n";
 			returnValues.put(fieldName, fieldValue);
 		}
-		System.out.println(returnValue);
 		return returnValues;
 	}
 
@@ -245,16 +245,16 @@ public class HelloJDBC {
 		String movieId = "92616";
 		String returnValue = "";
 
-		Key majorKeyPath1 = Key.createKey(Arrays.asList(table1, movieId), Arrays.asList("actorid"));
+		Key majorKeyPath1 = Key.createKey(Arrays.asList(table1, movieId));
 
 		Map<Key, ValueVersion> fields = store.multiGet(majorKeyPath1, null, null); //get all movie/movieid/-/actorid
 		// for each actorid, get the roles
+		returnValue += "\nMovie ID: " + movieId + "\n";
 		for (Map.Entry<Key, ValueVersion> field : fields.entrySet()) {
-
-			String fieldName = field.getKey().getMinorPath().get(0);
+//			String fieldName = field.getKey().getMinorPath().get(0);
 			String fieldValue = new String(field.getValue().getValue().getValue());
 
-			returnValue += "\t" + fieldName + "\t: " + fieldValue;
+			returnValue += "  " + fieldValue;
 		}
 
 		return returnValue;
@@ -268,18 +268,17 @@ public class HelloJDBC {
 		Key myKey = Key.createKey(Arrays.asList(table));
 		ArrayList<KeyValueVersion> sortedRecords = new ArrayList<KeyValueVersion>();
 		Iterator<KeyValueVersion> i = store.storeIterator(Direction.UNORDERED, 0, myKey, null, null);
+		Integer j = 0;
 		while(i.hasNext()) {
 			KeyValueVersion current = i.next();
 
-			returnValue += "\nMovieID: " + current.getKey().getMajorPath().get(1);
-
+			if(j%2==0) {
+				returnValue += "\nMovieID: " + current.getKey().getMajorPath().get(1);
+			}
 			String fieldName = current.getKey().getMinorPath().get(0);
 			Value value = current.getValue();
 			returnValue += "\n\t" + fieldName + ": \t " + new String(value.getValue());
-
-//			fieldName = current.getKey().getMinorPath().get(1);
-//			value = current.getValue();
-//			returnValue += "\n\t" + fieldName + ": " + new String(value.getValue());
+			j++;
 		}
 		return returnValue;
 	}

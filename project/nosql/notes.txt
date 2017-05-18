@@ -1,0 +1,7 @@
+Part 5 - Extensions:
+	RESTful web service:
+		../j2ee/notes.txt
+	KVLite:
+		The KVLite loaders allow a way to get both the person information and all the information related to a person (specifically wage, and later Loan, Tax and Savings can also be implemented and all stored into Person). This allows an easy one query to get all the information of a person.
+
+		I do not think KVlite is the best noSQL database solution for my project. I would personally use a Document type database such as MongoDB. Ideally, this database would be used primarilly to serve up data as a CLR (.NET) object or a JavaScript object. A document type database would eliminate any impedance mismatch that a relational database would have, and allow for scalability of many, many tax years. The tax data could then be sharded for each year, allowing for years to be archived to a lower bandwidth server and keeping the current tax year's data on a server with a much higher bandwidth.

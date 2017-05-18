@@ -1,0 +1,20 @@
+Part 5 - Extensions:
+	RESTful web service:
+		RESTful web service:
+		Sometime in April, we talked and agreed that since I had already implemented the rest api in ASP.NET with ODBC and Entity, I would be able to turn that in instead of the JPA, Java-based RESTful web service.
+		
+		Project is saved under project/j2ee/PersonalFinanceWebApp.
+		In the PersonalFinanceModel.Context.cs, I added a configuration to disable lazyloading in order to make the api only get the persons direct information (i.e. id, firstname, lastname, city, filingtype)
+		
+		Global.asax is the equivalent of a JPA. 
+		The routes for Person and IncomeTax are declared in WebApiConfig.cs. Wage and IncomeTaxBracket use custom routes because they do not take in an {id}, they take in a {personid} and a {id}/{bracketLevel} (respectively).
+		The Oracle connection string is defined at the bottom of the Web.config. The PFContext is an Entity framework connection (like EntityManager).
+
+		Endpoints are located at localhost:60057/api/...
+		GET, PUT, POST and DELETE are enabled.
+		Followed Microsoft's standards for Web API 2: https://docs.microsoft.com/en-us/aspnet/web-api/overview/getting-started-with-aspnet-web-api/action-results
+		
+		The REST web service is very useful for serving up incometaxbrackets, people or wages to graph or do data analysis on. An IncomeTaxBracket shows the minimum and maximum income to be considered within that tax bracket.
+		
+	KVLite:
+		../nosql/notes.txt
