@@ -19,7 +19,8 @@ import java.util.*;
  * C:\glassfish-4.1-web\glassfish4\glassfish\lib\ojdbc6.jar
  * See notes.txt for explanation of nosql and the purposes of using it
  *
- * @author djm43
+ * @author kvlinden
+ * @author modified by djm43
  * @version Spring, 2017
  */
 public class JDBC2KVLiteAdapter {
@@ -55,7 +56,20 @@ public class JDBC2KVLiteAdapter {
         }
     }
 
-    // pull data from the OracleXE PersonalFinance Person, IncomeTax, Wage tables and stores it in KVLite
+    /** 
+	* Pulls data from the OracleXE PersonalFinance Person, IncomeTax, Wage tables and stores it in KVLite
+	* Key Structure:
+	* /person/id/-/... (firstname,lastname,state,city,filingtype,wage,hourlywage,yearlywage,bonus)
+	* ^ has the person and wage tables queried by the person id
+	*
+	* /incometax/id/-/... (type,state,filingtype,flat,year,bracketlevel,bmin,bmax,rate)
+	* ^ has the incometax and incometaxbracket tables queried by incometax id
+	*
+	* /wage/id/-/... (hourlywage,yearlywage, bonus)
+	*
+	* @param jdbcConnection, the connection to make statements/resultsets off of in order to perform queries on the database
+	* @param store, the kvlite store connection to call Read/Writes on
+	*/
     public static void LoadDB(Connection jdbcConnection, KVStore store) throws SQLException {
         Statement jdbcStatement = jdbcConnection.createStatement();
 
@@ -266,7 +280,12 @@ public class JDBC2KVLiteAdapter {
         jdbcStatement.close();
     }
 
-    // Load the Person table which is joined with the Wage table from KVLite
+    /**
+	 * Load the Person table which is joined with the Wage table from KVLite
+	 *
+	 * @param store, the kvlite store connection to call Read/Writes on
+	 * @return output of wage table as a string
+	 */
     public static String getPersonTable(KVStore store){
         String table = "person";
         String returnValue = "";
@@ -289,7 +308,12 @@ public class JDBC2KVLiteAdapter {
         return returnValue;
     }
 
-    // Load the IncomeTax table which is joined with the IncomeTaxBracket table from KVLite
+    /**
+	 * Load the IncomeTax table which is joined with the IncomeTaxBracket table from KVLite
+	 *
+	 * @param store, the kvlite store connection to call Read/Writes on
+	 * @return output of wage table as a string
+	 */
     public static String getIncomeTaxTable(KVStore store){
         String table = "IncomeTax";
         String returnValue = "";
@@ -312,7 +336,12 @@ public class JDBC2KVLiteAdapter {
         return returnValue;
     }
 
-    // Load the Wage table from KVLite
+    /** 
+	 * Load the Wage table from KVLite
+	 * 
+	 * @param store, the kvlite store connection to call Read/Writes on
+	 * @return output of wage table as a string
+	 */
     public static String getWageTable(KVStore store){
         String table = "wage";
         String returnValue = "";
