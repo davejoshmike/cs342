@@ -17,21 +17,16 @@ BEGIN
 END;
 /
 
--- prevent duplicate years from being added to taxyear
-
+-- calls ComputePersonTaxRate Procedure to recompute the taxrate in the Tax table
+-- when any wage or location changes
 CREATE OR REPLACE TRIGGER UpdateTaxRate
-    AFTER UPDATE OR INSERT ON Person
+    AFTER INSERT ON Person
     REFERENCING OLD AS old NEW AS new
     FOR EACH ROW
 DECLARE
        CURSOR tax IS
         SELECT * FROM Tax WHERE personid=new.id;
 BEGIN
-    -- if a persons wage or location changes
-    IF (old.who != tax.who OR old.why != tax.why) THEN
-        ComputePersonTaxRate(tax.id, tax.who, tax.why, tax.year);
-    END IF;
+    ComputePersonTaxRate(tax.id, tax.who, tax.why, tax.year);
 END;
 /
-
-    AFTER UPDATE ON WAGE
